@@ -14,6 +14,9 @@ import android.view.ViewGroup
 import dagger.android.support.AndroidSupportInjection
 import javax.inject.Inject
 
+/**
+ * Base fragment will extend all the fragments
+ */
 abstract class BaseFragment<VM : ViewModel, DB: ViewDataBinding>: Fragment() {
 
     // view model factory instance

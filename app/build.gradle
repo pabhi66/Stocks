@@ -2,7 +2,6 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
 apply from: 'dependencies.gradle'
 
 android {
@@ -36,6 +35,10 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+    kapt {
+        mapDiagnosticLocations = true
+    }
 }
 
 dependencies {
@@ -48,7 +51,7 @@ dependencies {
     implementation daggerLibraries
     implementation sethoLibraries
 
-    annotationProcessor roomCompiler
+    kapt roomCompiler
     kapt annotationCompilerLibraries
 
     // Leak Canary
@@ -58,4 +61,5 @@ dependencies {
     // test
     testImplementation junit
     androidTestImplementation testRunner
+    androidTestImplementation expresso
 }

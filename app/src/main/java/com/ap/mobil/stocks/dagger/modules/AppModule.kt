@@ -1,11 +1,19 @@
 package com.ap.mobil.stocks.dagger.modules
 
+import android.app.Application
+import android.arch.persistence.room.Room
+import com.ap.mobil.stocks.data.local.dao.UserStockListDao
+import com.ap.mobil.stocks.data.local.database.UserStockListDatabase
+import com.ap.mobil.stocks.data.remote.StockApiService
 import com.facebook.stetho.okhttp3.BuildConfig
 import com.facebook.stetho.okhttp3.StethoInterceptor
 import dagger.Module
 import dagger.Provides
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
+import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
+import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
 /**
@@ -44,4 +52,31 @@ class AppModule {
         }
         return okHttpClient.build()
     }
+
+    // =============== Stocks Data ====================
+    @Provides
+    @Singleton
+    fun provideApiService(okHttpClient: OkHttpClient): StockApiService {
+        val retrofit = Retrofit.Builder()
+            .baseUrl("https://api.iextrading.com/1.0/")
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .client(okHttpClient)
+            .build()
+
+        return retrofit.create(StockApiService::class.java)
+    }
+
+    // =============== User Stocks List ====================
+    @Provides
+    @Singleton
+    fun provideUserStockDatabase(application: Application): UserStockListDatabase =
+            Room.databaseBuilder(application, UserStockListDatabase::class.java, "posts.db")
+                    .fallbackToDestructiveMigration().build()
+
+    @Provides
+    @Singleton
+    fun provideUserStockListDao(userStockListDatabase: UserStockListDatabase): UserStockListDao =
+            userStockListDatabase.userStockListDao()
+
 }

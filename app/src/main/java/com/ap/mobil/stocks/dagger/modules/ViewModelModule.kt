@@ -2,7 +2,7 @@ package com.ap.mobil.stocks.dagger.modules
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
-import com.ap.mobil.stocks.VMFactory
+import com.ap.mobil.stocks.dagger.VMFactory
 import com.ap.mobil.stocks.dagger.scopes.ViewModelKey
 import com.ap.mobil.stocks.ui.main.MainViewModel
 import dagger.Binds

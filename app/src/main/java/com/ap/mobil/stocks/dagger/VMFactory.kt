@@ -1,4 +1,4 @@
-package com.ap.mobil.stocks
+package com.ap.mobil.stocks.dagger
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
@@ -8,8 +8,10 @@ import javax.inject.Singleton
 
 @Suppress("UNCHECKED_CAST")
 @Singleton
-class VMFactory @Inject constructor(private val viewModelMap: Map<Class<out ViewModel>, @JvmSuppressWildcards Provider<ViewModel>>)
-    : ViewModelProvider.Factory {
+class VMFactory @Inject constructor(
+        private val viewModelMap: Map<Class<out ViewModel>,
+                @JvmSuppressWildcards Provider<ViewModel>>
+) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         var viewModel = viewModelMap[modelClass]
@@ -25,5 +27,4 @@ class VMFactory @Inject constructor(private val viewModelMap: Map<Class<out View
         if (viewModel == null) throw IllegalArgumentException("Unknown model class $modelClass")
         return viewModel.get() as T
     }
-
 }

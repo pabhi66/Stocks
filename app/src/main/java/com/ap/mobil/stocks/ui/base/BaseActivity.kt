@@ -7,7 +7,6 @@ import android.support.annotation.LayoutRes
 import android.support.annotation.MenuRes
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
-import android.view.Menu
 import dagger.android.AndroidInjection
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
@@ -41,6 +40,7 @@ abstract class BaseActivity<DB: ViewDataBinding>: AppCompatActivity(), HasSuppor
      */
     @MenuRes
     open fun getMenuRes(): Int = 0
+
 
     /**
      * override on create. Inject this activity and bind the layout
