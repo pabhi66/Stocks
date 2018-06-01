@@ -20,11 +20,10 @@ class App: Application(), HasActivityInjector {
 
         initInjector()
 
-        if (LeakCanary.isInAnalyzerProcess(this)) return
-        LeakCanary.install(this)
-
         if (BuildConfig.DEBUG) {
             Stetho.initializeWithDefaults(this)
+            if (LeakCanary.isInAnalyzerProcess(this)) return
+            LeakCanary.install(this)
         }
     }
 

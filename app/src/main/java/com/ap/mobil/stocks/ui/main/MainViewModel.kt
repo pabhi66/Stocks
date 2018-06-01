@@ -3,6 +3,7 @@ package com.ap.mobil.stocks.ui.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.util.Log
 import com.ap.mobil.stocks.data.local.entity.Stock
 import com.ap.mobil.stocks.data.local.entity.UserStockList
 import com.ap.mobil.stocks.data.repository.StocksRepository
@@ -27,7 +28,8 @@ class MainViewModel @Inject constructor(
     fun getStockData(symbol: String): LiveData<Stock> {
         disposable.add(stocksRepository.getStockData(symbol)
             .subscribe{
-                    response -> stockLiveList.value = response
+                    response, error -> stockLiveList.value = response
+                                Log.e(TAG, "symbol: $symbol not found. Error: $error")
             })
         return stockData
     }
