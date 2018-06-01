@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+apply from: 'dependencies.gradle'
+
+android {
+    compileSdkVersion configuration.compileSdkVersion
+    defaultConfig {
+        applicationId configuration.package
+        minSdkVersion configuration.minSdkVersion
+        targetSdkVersion configuration.targetSdkVersion
+        versionCode configuration.versionCode
+        versionName configuration.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    dexOptions {
+        maxProcessCount 4
+        preDexLibraries false
+        javaMaxHeapSize "8g"
+    }
+
+    dataBinding {
+        enabled true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation kotlinLibrary
+    implementation supportLibraries
+    implementation androidArchLibraries
+    implementation networkLibraries
+    implementation rxJavaLibraries
+    implementation daggerLibraries
+    implementation sethoLibraries
+
+    annotationProcessor roomCompiler
+    kapt annotationCompilerLibraries
+
+    // Leak Canary
+    debugImplementation leakDebug
+    releaseImplementation leakRelease
+
+    // test
+    testImplementation junit
+    androidTestImplementation testRunner
+}

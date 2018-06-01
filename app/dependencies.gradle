@@ -1,0 +1,121 @@
+ext {
+    configuration = [
+            package: "com.ap.mobil.stocks",
+            compileSdkVersion: 27,
+            targetSdkVersion : 27,
+            minSdkVersion    : 21,
+            versionCode      : 1,
+            versionName      : "1.0.0"
+    ]
+
+    libraries = [
+            support            : "27.1.1",
+            constraintLayout   : "1.1.0",
+            arch               : "1.1.1",
+            room               : "1.1.0",
+            rxjava             : "2.1.14-RC1",
+            rxandroid          : "2.0.2",
+            dagger             : "2.16",
+            okhttp             : "3.10.0",
+            loggingInterceptor : "3.9.0",
+            retrofit           : "2.4.0",
+            gson               : "2.8.4",
+            stetho             : "1.5.0",
+            leakCanary         : "1.5.4"
+    ]
+
+    test = [
+            junit: "4.12",
+            testRunner: "1.0.1",
+            expresso: "3.0.2"
+    ]
+
+    //==== libraries ====
+
+    supportDeps = [
+            cardView         : "com.android.support:cardview-v7:$libraries.support",
+            appcompatV7      : "com.android.support:appcompat-v7:$libraries.support",
+            design           : "com.android.support:design:$libraries.support",
+            recyclerView     : "com.android.support:recyclerview-v7:$libraries.support",
+            supportAnnotation: "com.android.support:support-annotations:$libraries.support",
+            gridLayout       : "com.android.support:gridlayout-v7:$libraries.support",
+            constraintLayout : "com.android.support.constraint:constraint-layout:$libraries.constraintLayout",
+            support          : "com.android.support:support-v4:$libraries.support"
+    ]
+
+    kotlin = [
+            kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    ]
+
+    androidArch = [
+            lifecycleRuntime: "android.arch.lifecycle:runtime:${libraries.arch}",
+            lifecycleExtensions: "android.arch.lifecycle:extensions:${libraries.arch}",
+            room: "android.arch.persistence.room:runtime:${libraries.room}",
+            roomRx: "android.arch.persistence.room:rxjava2:${libraries.room}",
+    ]
+
+    rxJava = [
+            rxJava: "io.reactivex.rxjava2:rxjava:${libraries.rxjava}",
+            rxandroid:  "io.reactivex.rxjava2:rxandroid:${libraries.rxandroid}"
+    ]
+
+    retrofit = [
+            retrofit: "com.squareup.retrofit2:retrofit:${libraries.retrofit}",
+            retrofitRx: "com.squareup.retrofit2:adapter-rxjava2:${libraries.retrofit}",
+            retrofitGson: "com.squareup.retrofit2:converter-gson:${libraries.retrofit}"
+    ]
+
+    // Gson
+    gson = [
+            gson: "com.google.code.gson:gson:${libraries.gson}"
+    ]
+    // OkHttp
+    okHttp = [
+            okhttp: "com.squareup.okhttp3:okhttp:${libraries.okhttp}",
+            httpLogging: "com.squareup.okhttp3:logging-interceptor:${libraries.loggingInterceptor}"
+    ]
+
+    // Dagger
+    dagger = [
+            dagger:"com.google.dagger:dagger:${libraries.dagger}",
+            daggerSupport:"com.google.dagger:dagger-android-support:${libraries.dagger}",
+            daggerAndroid:"com.google.dagger:dagger-android:${libraries.dagger}"
+    ]
+
+
+    // Stetho
+    setho = [
+            setho:"com.facebook.stetho:stetho:${libraries.stetho}",
+            sethoHttp:"com.facebook.stetho:stetho-okhttp3:${libraries.stetho}"
+    ]
+
+    supportLibraries = supportDeps.values()
+    kotlinLibrary = kotlin.values()
+    androidArchLibraries = androidArch.values()
+    networkLibraries = retrofit.values() + gson.values() + okHttp.values()
+    rxJavaLibraries = rxJava.values()
+    daggerLibraries = dagger.values()
+    sethoLibraries = setho.values()
+
+    //==== compilers ====
+
+    // android arch and room compiler
+    roomCompiler = "android.arch.persistence.room:compiler:${libraries.room}"
+    lifecycleCompiler =  "android.arch.lifecycle:compiler:${libraries.arch}"
+
+    //dagger compilers
+    daggerCompiler =  "com.google.dagger:dagger-compiler:${libraries.dagger}"
+    daggerProcessor =  "com.google.dagger:dagger-android-processor:${libraries.dagger}"
+
+    annotationCompilerLibraries = [roomCompiler, lifecycleCompiler, daggerCompiler, daggerProcessor]
+
+    // leak canary
+    leakDebug = "com.squareup.leakcanary:leakcanary-android:${libraries.leakCanary}"
+    leakRelease = "com.squareup.leakcanary:leakcanary-android-no-op:${libraries.leakCanary}"
+
+    // ==== TEST ====
+    junit = "junit:junit:${test.junit}"
+    testRunner = "com.android.support.test:runner:${test.testRunner}"
+    expresso = "com.android.support.test.espresso:espresso-core:${test.expresso}"
+
+}
