@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.util.Log
 import android.view.Menu
@@ -15,6 +16,7 @@ import com.ap.mobil.stocks.R
 import com.ap.mobil.stocks.data.local.entity.UserStockList
 import com.ap.mobil.stocks.databinding.FragmentMainBinding
 import com.ap.mobil.stocks.ui.base.BaseFragment
+import com.ap.mobil.stocks.ui.views.recyclerview.adapters.StocksListAdapter
 
 /**
  * A placeholder fragment containing a simple view.
@@ -55,6 +57,7 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                 Toast.makeText(context, "symbol :$query", Toast.LENGTH_LONG).show()
                 viewModel.getStockData(symbol = query).observe(this@MainActivityFragment, Observer {
                     if(it != null) {
+                        viewModel.insertStockToUserList(UserStockList(0, it.company?.companyName!!, it.company.symbol!!))
                         Snackbar.make(view!!, "high: ${it.quote?.high}, low: ${it.quote?.low}, current: ${it.quote?.latestPrice}", Snackbar.LENGTH_SHORT).show()
                     } else {
                         Snackbar.make(view!!, "Symbol Not Found", Snackbar.LENGTH_SHORT).show()
@@ -77,19 +80,29 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-//        viewModel.getStockData("aapl")
-//            .observe(this, Observer {
-//                println(it?.company?.companyName)
-//                println(it?.news?.get(0)?.headline)
-//            })
+        setupRecyclerView()
+    }
 
+    private fun setupRecyclerView() {
+        viewModel.getUserStockList().observe(
+            this , Observer {
+                    if(it != null) {
+                        dataBinding.stocksFavRecyclerView.apply {
+                            layoutManager = LinearLayoutManager(context)
+                            adapter = StocksListAdapter(
+                                context,
+                                it,
+                                object: StocksListAdapter.OnItemClickListener {
+                                    override fun onItemClick(symbol: String) {
+                                        DetailDialog.newInstance(symbol).show(fragmentManager, "test")
+                                    }
+                                }
+                            )
+                        }
+                    } else {
+                        Snackbar.make(view!!, "Please add stocks", Snackbar.LENGTH_SHORT).show()
+                    }
+        })
 
-
-        viewModel.getUserStockList()
-                .observe(this, Observer {
-                   it?.forEach {
-                       println("${it.symbol}, ${it.company}")
-                   }
-                })
     }
 }

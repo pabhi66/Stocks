@@ -39,7 +39,7 @@ class MainViewModel @Inject constructor(
         get() = userStockListLiveList
 
     fun insertStockToUserList(stock: UserStockList) {
-        stock.symbol = stock.symbol.toLowerCase()
+        stock.symbol = stock.symbol.toUpperCase()
         userStockListRepository.insertStock(stock)
     }
 
@@ -56,7 +56,7 @@ class MainViewModel @Inject constructor(
     }
 
     fun deleteStock(symbol: String) {
-        userStockListRepository.deleteSingleStock(symbol)
+        userStockListRepository.deleteSingleStock(symbol.toUpperCase())
     }
 
 
