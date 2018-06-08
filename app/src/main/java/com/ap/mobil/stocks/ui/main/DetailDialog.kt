@@ -13,7 +13,8 @@ class DetailDialog: BottomSheetDialogFragment() {
 
     companion object {
         private const val SYMBOL = "symbol"
-        fun newInstance(symbol: String) = DetailDialog().apply {
+        private const val VIEW_MODEL = "viewModel"
+        fun newInstance(symbol: String, viewModel: MainViewModel) = DetailDialog().apply {
             arguments = Bundle(1).apply {
                 putString(SYMBOL, symbol)
             }

@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.design.widget.Snackbar
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
-import android.util.Log
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
@@ -16,11 +15,12 @@ import com.ap.mobil.stocks.R
 import com.ap.mobil.stocks.data.local.entity.UserStockList
 import com.ap.mobil.stocks.databinding.FragmentMainBinding
 import com.ap.mobil.stocks.ui.base.BaseFragment
-import com.ap.mobil.stocks.ui.views.recyclerview.adapters.StocksListAdapter
+import com.ap.mobil.stocks.ui.views.recyclerview.adapters.UserStocksListAdapter
 
 /**
  * A placeholder fragment containing a simple view.
  */
+@Suppress("unused")
 class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() {
 
     companion object {
@@ -89,15 +89,7 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                     if(it != null) {
                         dataBinding.stocksFavRecyclerView.apply {
                             layoutManager = LinearLayoutManager(context)
-                            adapter = StocksListAdapter(
-                                context,
-                                it,
-                                object: StocksListAdapter.OnItemClickListener {
-                                    override fun onItemClick(symbol: String) {
-                                        DetailDialog.newInstance(symbol).show(fragmentManager, "test")
-                                    }
-                                }
-                            )
+                            adapter = UserStocksListAdapter(it)
                         }
                     } else {
                         Snackbar.make(view!!, "Please add stocks", Snackbar.LENGTH_SHORT).show()
