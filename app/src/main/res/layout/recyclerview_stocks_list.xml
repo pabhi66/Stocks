@@ -2,17 +2,20 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    tools:keep="@layout/recyclerview_stocks_list"
     >
     
     <data>
         <variable
             name="viewModel"
-            type="com.ap.mobil.stocks.data.local.entity.UserStockList" />
+            type="com.ap.mobile.stocks.data.local.entity.UserStockList" />
     </data>
 
     <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionGroup="true"
+        tools:targetApi="lollipop"
         >
 
         <TextView
@@ -25,6 +28,7 @@
             android:paddingEnd="20dp"
             android:paddingTop="10dp"
             android:paddingBottom="5dp"
+            tools:text="Stock Symbol"
             />
 
         <TextView
@@ -36,6 +40,7 @@
             android:paddingStart="20dp"
             android:paddingEnd="20dp"
             android:paddingBottom="10dp"
+            tools:text="Company Name"
             app:layout_constraintTop_toBottomOf="@id/rv_symbol"/>
 
     </android.support.constraint.ConstraintLayout>

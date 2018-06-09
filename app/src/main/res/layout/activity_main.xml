@@ -26,7 +26,7 @@
 
         <fragment
             android:id="@+id/fragment"
-            android:name="com.ap.mobil.stocks.ui.main.MainActivityFragment"
+            android:name="com.ap.mobile.stocks.ui.main.MainActivityFragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
