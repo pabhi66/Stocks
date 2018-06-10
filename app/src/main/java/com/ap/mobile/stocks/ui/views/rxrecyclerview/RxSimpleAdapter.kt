@@ -1,6 +1,7 @@
 package com.ap.mobile.stocks.ui.views.rxrecyclerview
 
 import android.databinding.ViewDataBinding
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.jakewharton.rxbinding2.view.clicks
@@ -19,12 +20,13 @@ import io.reactivex.subjects.PublishSubject
 @Suppress("unused")
 open class RxSimpleAdapter<T : Any, U : ViewDataBinding>(
     observable: Observable<List<T>>,
-    initialValue: List<T>,
+    private val initialValue: List<T>,
     private val inflate: (LayoutInflater, ViewGroup, Boolean) -> U,
     private val set: U.(T) -> Unit,
     private val id: (T.() -> Long)? = null
 
-) : RxRecyclerAdapter<List<T>, BindingHolder<U>>(observable, initialValue) {
+) : RxRecyclerAdapter<List<T>, BindingHolder<U>>(observable, initialValue){
+
     @Suppress("MemberVisibilityCanBePrivate")
 
         /**

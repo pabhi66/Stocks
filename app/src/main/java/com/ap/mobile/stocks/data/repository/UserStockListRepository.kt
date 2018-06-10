@@ -32,7 +32,7 @@ class UserStockListRepository @Inject constructor(private val userStockList: Use
 
     fun deleteSingleStock(symbol: String) {
         Single.fromCallable {
-            userStockList.deleteSingleStockFromUserStockList(symbol.toLowerCase())
+            userStockList.deleteSingleStockFromUserStockList(symbol.toUpperCase())
         }
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

@@ -71,7 +71,7 @@ class AppModule {
     @Provides
     @Singleton
     fun provideUserStockDatabase(application: Application): UserStockListDatabase =
-            Room.databaseBuilder(application, UserStockListDatabase::class.java, "posts.db")
+            Room.databaseBuilder(application, UserStockListDatabase::class.java, "userStocks.db")
                     .fallbackToDestructiveMigration().build()
 
     @Provides

@@ -5,6 +5,7 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
@@ -18,6 +19,12 @@ import com.ap.mobile.stocks.ui.base.BaseFragment
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RxSimpleAdapter
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
+import android.support.v7.widget.helper.ItemTouchHelper
+import android.util.Log
+import com.ap.mobile.stocks.ui.views.rxrecyclerview.ItemTouchHelperAdapter
+import com.ap.mobile.stocks.ui.views.rxrecyclerview.RecyclerViewItemTouchHelper
+import java.util.*
+
 
 /**
  * A placeholder fragment containing a simple view.
@@ -65,12 +72,11 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
             this , Observer {
                     if(it != null) {
                         dataBinding.stocksFavRecyclerView.apply {
-                            adapter = RxSimpleAdapter<UserStockList, RecyclerviewStocksListBinding>(
+                            adapter = RxSimpleAdapter(
                                 Observable.fromArray(viewModel.userStocksList.value!!),
                                 viewModel.userStocksList.value!!,
                                 RecyclerviewStocksListBinding::inflate,
-                                RecyclerviewStocksListBinding::setViewModel,
-                                UserStockList::uid
+                                RecyclerviewStocksListBinding::setViewModel
                             ).apply {
                                 clicks.bindToLifecycle(view!!).subscribe {
                                     Snackbar.make(view!!, it.symbol, Snackbar.LENGTH_SHORT).show()
@@ -78,6 +84,39 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                             }
                         }
                     }
+            dataBinding.stocksFavRecyclerView.setHasFixedSize(false)
+            val callback = RecyclerViewItemTouchHelper(object: ItemTouchHelperAdapter {
+                /**
+                 * recycler view on item move
+                 */
+                override fun onItemMove(fromPosition: Int, toPosition: Int) {
+                    Log.e("dragged", "dragged")
+                    // must call
+                    if(fromPosition < toPosition) {
+                        for (i in fromPosition until toPosition) {
+                            Collections.swap(viewModel.userStocksList.value, i, i + 1)
+                        }
+                    } else {
+                        for (i in fromPosition downTo toPosition + 1) {
+                            Collections.swap(viewModel.userStocksList.value, i, i - 1)
+                        }
+                    }
+                    dataBinding.stocksFavRecyclerView.adapter.notifyItemMoved(fromPosition, toPosition)
+                }
+
+                /**
+                 * recycler view item dismissed
+                 */
+                override fun onItemDismiss(position: Int) {
+                    Log.e("swiped", "swiped")
+                    // must call
+                    viewModel.deleteStock(viewModel.getUserStockList().value!![position].symbol)
+                    dataBinding.stocksFavRecyclerView.adapter.notifyItemRemoved(position)
+                }
+
+            })
+            val touchHelper = ItemTouchHelper(callback)
+            touchHelper.attachToRecyclerView(dataBinding.stocksFavRecyclerView)
         })
 
     }
@@ -99,9 +138,6 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                 viewModel.getStockData(symbol = query).observe(this@MainActivityFragment, Observer {
                     if(it != null) {
                         viewModel.insertStockToUserList(UserStockList(0, it.company?.companyName!!, it.company.symbol!!))
-                        if(viewModel.userStocksList.value == null) {
-                            setupRecyclerView()
-                        }
                         Snackbar.make(view!!, "high: ${it.quote?.high}, low: ${it.quote?.low}, current: ${it.quote?.latestPrice}", Snackbar.LENGTH_SHORT).show()
                     } else {
                         Snackbar.make(view!!, "Symbol Not Found", Snackbar.LENGTH_SHORT).show()

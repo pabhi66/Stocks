@@ -3,6 +3,7 @@ package com.ap.mobile.stocks.ui.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import android.os.Handler
 import android.util.Log
 import com.ap.mobile.stocks.data.local.entity.Stock
 import com.ap.mobile.stocks.data.local.entity.UserStockList
@@ -41,7 +42,10 @@ class MainViewModel @Inject constructor(
     fun insertStockToUserList(stock: UserStockList) {
         stock.symbol = stock.symbol.toUpperCase()
         userStockListRepository.insertStock(stock)
-        getUserStockList()
+        val handler = Handler()
+        handler.postDelayed({
+            getUserStockList()
+        }, 10)
     }
 
     fun getUserStockList(): LiveData<List<UserStockList>> {
@@ -57,7 +61,12 @@ class MainViewModel @Inject constructor(
     }
 
     fun deleteStock(symbol: String) {
-        userStockListRepository.deleteSingleStock(symbol.toUpperCase())
+        Log.e("symbol", symbol)
+        userStockListRepository.deleteSingleStock(symbol)
+        val handler = Handler()
+        handler.postDelayed({
+            getUserStockList()
+        }, 10)
     }
 
 
