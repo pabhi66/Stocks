@@ -5,7 +5,6 @@ import android.arch.lifecycle.Observer
 import android.content.Context
 import android.os.Bundle
 import android.support.design.widget.Snackbar
-import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
@@ -21,9 +20,13 @@ import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
+import com.ap.mobile.stocks.ui.detail.StockDetailActivity
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.ItemTouchHelperAdapter
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RecyclerViewItemTouchHelper
 import java.util.*
+import com.ap.mobile.stocks.ui.detail.StockDetailDialog
+import com.ap.mobile.stocks.ui.detail.StockDetailFragment
+import com.ap.mobile.stocks.util.ActivityUtil
 
 
 /**
@@ -65,6 +68,7 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         setupRecyclerView()
+        setupPriceButton()
     }
 
     private fun setupRecyclerView() {
@@ -79,7 +83,10 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                                 RecyclerviewStocksListBinding::setViewModel
                             ).apply {
                                 clicks.bindToLifecycle(view!!).subscribe {
-                                    Snackbar.make(view!!, it.symbol, Snackbar.LENGTH_SHORT).show()
+                                    //Snackbar.make(view!!, it.symbol, Snackbar.LENGTH_SHORT).show()
+                                    //StockDetailDialog.newInstance(it.symbol).show(fragmentManager, "stockDetails")
+                                    // startActivity(StockDetailActivity.newIntent(context, it.symbol))
+                                    ActivityUtil.addFragmentToActivity(fragmentManager!!, StockDetailFragment.newInstance(it.symbol), R.id.fragment)
                                 }
                             }
                         }
@@ -118,7 +125,6 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
             val touchHelper = ItemTouchHelper(callback)
             touchHelper.attachToRecyclerView(dataBinding.stocksFavRecyclerView)
         })
-
     }
 
     private fun setupSearchView(searchView: SearchView) {
@@ -134,7 +140,6 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
             override fun onQueryTextSubmit(query: String): Boolean {
                 // **Here you can get the value "query" which is entered in the search box.**
 
-                Toast.makeText(context, "symbol :$query", Toast.LENGTH_LONG).show()
                 viewModel.getStockData(symbol = query).observe(this@MainActivityFragment, Observer {
                     if(it != null) {
                         viewModel.insertStockToUserList(UserStockList(0, it.company?.companyName!!, it.company.symbol!!))
@@ -150,5 +155,8 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
         searchView.setOnQueryTextListener(queryTextListener)
     }
 
+    private fun setupPriceButton() {
+
+    }
 
 }

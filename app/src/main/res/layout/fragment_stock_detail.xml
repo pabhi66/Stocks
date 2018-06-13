@@ -1,0 +1,1126 @@
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="model"
+            type="com.ap.mobile.stocks.data.local.entity.Stock" />
+    </data>
+
+    <android.support.design.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black1"
+        >
+
+        <android.support.design.widget.AppBarLayout
+            android:id="@+id/stocks_detail_appbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            >
+
+            <android.support.design.widget.CollapsingToolbarLayout
+                android:id="@+id/stocks_detail_collapsing"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed|snap"
+                >
+
+                <android.support.constraint.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/black1"
+                    android:layout_gravity="bottom"
+                    >
+
+                    <TextView
+                        android:id="@+id/stock_detail_symbol"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingTop="40dp"
+                        tools:text="AAPL"
+                        android:textSize="40sp"
+                        android:fontFamily="@font/josefin_sans_semi_bold"
+                        android:textColor="@color/grey1"
+                        />
+
+                    <TextView
+                        android:id="@+id/stock_detail_company"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:paddingBottom="15dp"
+                        tools:text="apple"
+                        android:text="Apple"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textSize="18sp"
+                        android:textColor="@color/grey1"
+                        app:layout_constraintTop_toBottomOf="@+id/stock_detail_symbol"
+                        />
+
+                    <TextView
+                        android:id="@+id/stock_detail_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:paddingStart="20dp"
+                        android:paddingEnd="20dp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textSize="30sp"
+                        android:textColor="@color/green"
+                        android:gravity="center_vertical"
+                        tools:text="$43.47"
+                        android:text="$43.47"
+                        app:layout_constraintTop_toBottomOf="@+id/stock_detail_company"
+                        app:layout_constraintBottom_toBottomOf="parent"/>
+
+                    <TextView
+                        android:id="@+id/stock_detail_percentage"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/green"
+                        android:textSize="18sp"
+                        tools:text="0.09%"
+                        android:text="0.09%"
+                        app:layout_constraintLeft_toRightOf="@+id/stock_detail_price"
+                        app:layout_constraintTop_toBottomOf="@+id/stock_detail_company"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        />
+
+                </android.support.constraint.ConstraintLayout>
+            </android.support.design.widget.CollapsingToolbarLayout>
+        </android.support.design.widget.AppBarLayout>
+
+        <android.support.v4.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="none"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <RelativeLayout
+                    android:id="@+id/image_label1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp">
+                    <ImageView
+                        android:id="@+id/myImageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView"
+                        android:layout_alignTop="@+id/myImageView"
+                        android:layout_alignEnd="@+id/myImageView"
+                        android:layout_alignBottom="@+id/myImageView"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Graph"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/stock_detail_graph"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label1"/>
+
+                <RelativeLayout
+                    android:id="@+id/image_label2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_graph">
+                    <ImageView
+                        android:id="@+id/myImageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView2"
+                        android:layout_alignTop="@+id/myImageView2"
+                        android:layout_alignEnd="@+id/myImageView2"
+                        android:layout_alignBottom="@+id/myImageView2"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="News"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/stock_detail_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:transitionGroup="false"
+                    android:clipChildren="false"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label2"
+                    tools:listitem="@layout/recyclerview_stock_news_list"
+                    />
+
+                <RelativeLayout
+                    android:id="@+id/image_label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/stock_detail_rv">
+                    <ImageView
+                        android:id="@+id/myImageView3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView3"
+                        android:layout_alignTop="@+id/myImageView3"
+                        android:layout_alignEnd="@+id/myImageView3"
+                        android:layout_alignBottom="@+id/myImageView3"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Stats"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/stat_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label3">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black1">
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/left"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/right"
+                            >
+
+                            <TextView
+                                android:id="@+id/stock_detail_open"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="OPEN"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_open_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_open" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_high"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="HIGH"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_high_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_open" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_high_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_high"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_open" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_low"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="LOW"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_low_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_high" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_low_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_low"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_high" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_52high"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="52 WK HIGH"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_52high_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_low" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_52high_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_52high"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_low" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_52low"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="52 WK LOW"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_52low_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_52high" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_52low_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_52low"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_52high" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_div_rate"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="DIV RATE"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_div_rate_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_52low" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_div_rate_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_div_rate"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_52low" />
+
+                        </android.support.constraint.ConstraintLayout>
+
+                        <android.support.constraint.ConstraintLayout
+                            android:id="@+id/right"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintLeft_toRightOf="@+id/left"
+                            app:layout_constraintRight_toRightOf="parent">
+
+                            <TextView
+                                android:id="@+id/stock_detail_volume"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="VOLUME"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintStart_toStartOf="parent" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_volume_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_volume" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_AvgVolume"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="AVG VOL"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_AvgVolume_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_volume" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_AvgVolume_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_AvgVolume"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_volume" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_mktcap"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="MKT CAP"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_mktcap_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_AvgVolume" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_mktcap_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_mktcap"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_AvgVolume" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_peratio"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="P/E RATIO"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_peratio_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_mktcap" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_peratio_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_peratio"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_mktcap" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_ytd"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="YTD CHANGE"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_ytd_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_peratio" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_ytd_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_ytd"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_peratio" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_div_yield"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="8dp"
+                                android:fontFamily="@font/comfortaa_bold"
+                                android:padding="10dp"
+                                android:text="DIV YIELD"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintRight_toLeftOf="@+id/stock_detail_div_yield_value"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_ytd" />
+
+                            <TextView
+                                android:id="@+id/stock_detail_div_yield_value"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:fontFamily="@font/comfortaa_light"
+                                android:padding="10dp"
+                                android:text="123"
+                                android:textColor="@color/grey1"
+                                android:textSize="@dimen/font_size_stat"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintLeft_toRightOf="@+id/stock_detail_div_yield"
+                                app:layout_constraintTop_toBottomOf="@+id/stock_detail_ytd" />
+
+
+                        </android.support.constraint.ConstraintLayout>
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/image_label4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/stat_card_view">
+                    <ImageView
+                        android:id="@+id/myImageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView4"
+                        android:layout_alignTop="@+id/myImageView4"
+                        android:layout_alignEnd="@+id/myImageView4"
+                        android:layout_alignBottom="@+id/myImageView4"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Earnings"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <com.github.mikephil.charting.charts.LineChart
+                    android:id="@+id/earning_chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label4"/>
+
+                <RelativeLayout
+                    android:id="@+id/image_label5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/earning_chart">
+                    <ImageView
+                        android:id="@+id/myImageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView5"
+                        android:layout_alignTop="@+id/myImageView5"
+                        android:layout_alignEnd="@+id/myImageView5"
+                        android:layout_alignBottom="@+id/myImageView5"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="Financials"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <android.support.v7.widget.CardView
+                    android:id="@+id/financial_card_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label5">
+
+                    <android.support.constraint.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/black1">
+
+                        <TextView
+                            android:id="@+id/stock_detail_report_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/josefin_sans_semi_bold"
+                            android:padding="10dp"
+                            android:text="REPORT DATE"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <TextView
+                            android:id="@+id/stock_detail_report_date_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/josefin_sans_semi_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            />
+
+                        <TextView
+                            android:id="@+id/stock_detail_gross_profit"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="GROSS PROFIT"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_report_date"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_gross_profit_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_report_date"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_cost_of_revenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="COST OF REVENUE"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_gross_profit"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_cost_of_revenue_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_gross_profit"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_revenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="OPERATING REVENUE"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_cost_of_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_revenue_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_cost_of_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_total_revenue"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="TOTAL REVENUE"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_total_revenue_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="OPERATING INCOME"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_total_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_income_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_total_revenue"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_net_income"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="NET INCOME"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_income"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_net_income_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_income"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_rd"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="R and D"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_net_income"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_rd_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_net_income"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_expense"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="OPERATING EXPANSE"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_rd"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_operating_expense_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_rd"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_currentAssets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="CURRENT ASSETS"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_expense"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_currentAssets_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_expense"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_totalAssets"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="TOTAL ASSETS"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentAssets"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_totaltAssets_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentAssets"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_currentCash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="CURRENT CASH"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalAssets"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_currentCash_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalAssets"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_totalCash"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="TOTAL CASH"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentCash"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_totalCash_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentCash"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_cashFlow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="CASH FLOW"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalCash"/>
+
+                        <TextView
+                            android:id="@+id/stock_detail_cashFlow_value"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:fontFamily="@font/comfortaa_bold"
+                            android:padding="10dp"
+                            android:text="123"
+                            android:textColor="@color/grey1"
+                            android:textSize="@dimen/font_size_stat"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalCash"/>
+
+
+
+                    </android.support.constraint.ConstraintLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <RelativeLayout
+                    android:id="@+id/image_label6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="20dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintTop_toBottomOf="@id/financial_card_view">
+                    <ImageView
+                        android:id="@+id/myImageView6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/button_half_circle" />
+
+                    <TextView
+                        android:id="@+id/myImageViewText6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignStart="@+id/myImageView6"
+                        android:layout_alignTop="@+id/myImageView6"
+                        android:layout_alignEnd="@+id/myImageView6"
+                        android:layout_alignBottom="@+id/myImageView6"
+                        android:layout_margin="1dp"
+                        android:gravity="center"
+                        android:text="About"
+                        android:textSize="12sp"
+                        android:fontFamily="@font/comfortaa_light"
+                        android:textColor="@color/grey1" />
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/company_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="description"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textSize="@dimen/font_size_stat"
+                    android:textColor="@color/grey1"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/image_label6"
+                    />
+
+                <TextView
+                    android:id="@+id/company_ceo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="description"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textSize="@dimen/font_size_stat"
+                    android:textColor="@color/grey1"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/company_description"
+                    />
+
+                <TextView
+                    android:id="@+id/company_sector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="description"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textSize="@dimen/font_size_stat"
+                    android:textColor="@color/grey1"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/company_ceo"
+                    />
+
+                <TextView
+                    android:id="@+id/company_industry"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="description"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textSize="@dimen/font_size_stat"
+                    android:textColor="@color/grey1"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/company_sector"
+                    />
+
+                <TextView
+                    android:id="@+id/company_exchange"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:text="description"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textSize="@dimen/font_size_stat"
+                    android:textColor="@color/grey1"
+                    android:layout_margin="15dp"
+                    app:layout_constraintTop_toBottomOf="@+id/company_industry"
+                    />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    app:layout_constraintTop_toBottomOf="@+id/company_exchange"/>
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v4.widget.NestedScrollView>
+
+    </android.support.design.widget.CoordinatorLayout>
+
+</layout>

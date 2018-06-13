@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.ap.mobile.stocks.dagger.VMFactory
 import com.ap.mobile.stocks.dagger.scopes.ViewModelKey
+import com.ap.mobile.stocks.ui.detail.StockDetailViewModel
 import com.ap.mobile.stocks.ui.main.MainViewModel
 import dagger.Binds
 import dagger.Module
@@ -27,4 +28,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(MainViewModel::class)
     abstract fun bindsMainViewModel(MainViewModel: MainViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(StockDetailViewModel::class)
+    abstract fun bindsStockDetailViewModel(StockDetailViewModel: StockDetailViewModel): ViewModel
 }

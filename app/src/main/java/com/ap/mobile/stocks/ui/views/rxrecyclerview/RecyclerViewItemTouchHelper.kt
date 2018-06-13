@@ -1,7 +1,10 @@
 package com.ap.mobile.stocks.ui.views.rxrecyclerview
 
+import android.graphics.Canvas
+import android.graphics.Paint
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.helper.ItemTouchHelper
+
 
 /**
  * Recycler view on item actions listener
@@ -38,6 +41,9 @@ class RecyclerViewItemTouchHelper(
         return true
     }
 
+    /**
+     * handle on move action for recycler view item
+     */
     override fun onMove(recyclerView: RecyclerView?, viewHolder: RecyclerView.ViewHolder, target: RecyclerView.ViewHolder): Boolean {
         adapter.onItemMove(
             viewHolder.adapterPosition,
@@ -45,10 +51,10 @@ class RecyclerViewItemTouchHelper(
         return true
     }
 
+    /**
+     * handle swipe action for recycler view item
+     */
     override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
         adapter.onItemDismiss(viewHolder.adapterPosition)
     }
-
-
-
 }

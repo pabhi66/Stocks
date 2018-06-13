@@ -7,7 +7,6 @@ import android.arch.persistence.room.PrimaryKey
 import android.os.Parcel
 import android.os.Parcelable
 import com.ap.mobile.stocks.util.createParcel
-import dagger.Provides
 import org.jetbrains.annotations.NotNull
 
 /**

@@ -27,6 +27,7 @@ class MainViewModel @Inject constructor(
         get() = stockLiveList
 
     fun getStockData(symbol: String): LiveData<Stock> {
+        Log.e(TAG, symbol)
         disposable.add(stocksRepository.getStockData(symbol)
             .subscribe{
                 response, error -> stockLiveList.value = response
@@ -45,7 +46,7 @@ class MainViewModel @Inject constructor(
         val handler = Handler()
         handler.postDelayed({
             getUserStockList()
-        }, 10)
+        }, 100)
     }
 
     fun getUserStockList(): LiveData<List<UserStockList>> {
@@ -66,8 +67,6 @@ class MainViewModel @Inject constructor(
         val handler = Handler()
         handler.postDelayed({
             getUserStockList()
-        }, 10)
+        }, 100)
     }
-
-
 }
