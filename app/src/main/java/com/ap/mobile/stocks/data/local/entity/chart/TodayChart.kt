@@ -53,13 +53,13 @@ data class TodayChart(
 	val low: Double? = null,
 
 	@field:SerializedName("changeOverTime")
-	val changeOverTime: Int? = null,
+	val changeOverTime: Double? = null,
 
 	@field:SerializedName("numberOfTrades")
 	val numberOfTrades: Int? = null,
 
 	@field:SerializedName("marketChangeOverTime")
-	val marketChangeOverTime: Int? = null,
+	val marketChangeOverTime: Double? = null,
 
 	@field:SerializedName("close")
 	val close: Double? = null,

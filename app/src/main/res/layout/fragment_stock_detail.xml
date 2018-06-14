@@ -521,7 +521,7 @@
                                 android:layout_marginStart="8dp"
                                 android:fontFamily="@font/comfortaa_bold"
                                 android:padding="10dp"
-                                android:text="YTD CHANGE"
+                                android:text="YTD"
                                 android:textColor="@color/grey1"
                                 android:textSize="@dimen/font_size_stat"
                                 app:layout_constraintRight_toLeftOf="@+id/stock_detail_ytd_value"

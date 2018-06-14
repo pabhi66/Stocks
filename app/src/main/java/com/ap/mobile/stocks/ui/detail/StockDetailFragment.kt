@@ -101,18 +101,47 @@ class StockDetailFragment : BaseFragment<StockDetailViewModel, FragmentStockDeta
         dataBinding.stockDetailOpenValue.text = quote?.open.toString()
         dataBinding.stockDetailHighValue.text = quote?.high.toString()
         dataBinding.stockDetailLowValue.text = quote?.low.toString()
-        dataBinding.stockDetail52highValue.text = df.format(quote?.week52High)
-        dataBinding.stockDetail52lowValue.text = df.format(quote?.week52Low)
-        val volume = quote?.latestVolume?.toDouble()?.div(1000000)
-        dataBinding.stockDetailVolumeValue.text = df.format(volume) + "M"
-        val avgVolume = quote?.avgTotalVolume?.toDouble()?.div(1000000)
-        dataBinding.stockDetailAvgVolumeValue.text = df.format(avgVolume) + "M"
-        val cap = quote?.marketCap?.toDouble()?.div(1000000000)
-        dataBinding.stockDetailMktcapValue.text = df.format(cap) + "B"
+        if(quote?.week52High != null) {
+            dataBinding.stockDetail52highValue.text = df.format(quote.week52High)
+        } else {
+            dataBinding.stockDetail52highValue.text = "-"
+        }
+        if(quote?.week52Low != null) {
+            dataBinding.stockDetail52lowValue.text = df.format(quote.week52Low)
+        } else {
+            dataBinding.stockDetail52lowValue.text = "-"
+        }
+        if(quote?.latestVolume != null) {
+            val volume = quote.latestVolume.toDouble().div(1000000)
+            dataBinding.stockDetailVolumeValue.text = df.format(volume) + "M"
+        } else {
+            dataBinding.stockDetailVolumeValue.text = "-"
+        }
+        if(quote?.avgTotalVolume != null) {
+            val avgVolume = quote.avgTotalVolume.toDouble().div(1000000)
+            dataBinding.stockDetailAvgVolumeValue.text = df.format(avgVolume) + "M"
+        } else {
+            dataBinding.stockDetailAvgVolumeValue.text = "-"
+        }
+        if(quote?.marketCap != null) {
+            val cap = quote.marketCap.toDouble().div(1000000000)
+            dataBinding.stockDetailMktcapValue.text = df.format(cap) + "B"
+        } else {
+            dataBinding.stockDetailMktcapValue.text = "-"
+        }
         dataBinding.stockDetailPeratioValue.text = quote?.peRatio.toString()
-        dataBinding.stockDetailYtdValue.text = df.format(quote?.ytdChange).toString()
+        if(quote?.ytdChange != null) {
+            dataBinding.stockDetailYtdValue.text = df.format(quote.ytdChange).toString()
+        } else {
+            dataBinding.stockDetailYtdValue.text = "-"
+        }
         dataBinding.stockDetailDivRateValue.text = stock.stats?.dividendRate.toString()
-        dataBinding.stockDetailDivYieldValue.text = df.format(stock.stats?.dividendYield)
+        if(stock.stats?.dividendYield != null) {
+            dataBinding.stockDetailDivYieldValue.text = df.format(stock.stats.dividendYield)
+        } else {
+            dataBinding.stockDetailDivYieldValue.text = "-"
+        }
+
     }
 
     private fun setupFinancial(stock: Stock) {
@@ -121,19 +150,71 @@ class StockDetailFragment : BaseFragment<StockDetailViewModel, FragmentStockDeta
             val df = DecimalFormat("#.##")
             df.roundingMode = RoundingMode.CEILING
             dataBinding.stockDetailReportDateValue.text = stat?.reportDate
-            dataBinding.stockDetailGrossProfitValue.text = "${df.format(stat?.grossProfit?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailCostOfRevenueValue.text = "${df.format(stat?.costOfRevenue?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailOperatingRevenueValue.text = "${df.format(stat?.operatingRevenue?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailTotalRevenueValue.text = "${df.format(stat?.totalRevenue?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailOperatingIncomeValue.text = "${df.format(stat?.operatingIncome?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailNetIncomeValue.text = "${df.format(stat?.netIncome?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailRdValue.text = "${df.format(stat?.researchAndDevelopment?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailOperatingExpenseValue.text = "${df.format(stat?.operatingExpense?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailCurrentAssetsValue.text = "${df.format(stat?.currentAssets?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailTotaltAssetsValue.text = "${df.format(stat?.totalAssets?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailCurrentCashValue.text = "${df.format(stat?.currentCash?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailTotalCashValue.text = "${df.format(stat?.totalCash?.toDouble()?.div(1000000000))}B"
-            dataBinding.stockDetailCashFlowValue.text = "${df.format(stat?.cashFlow?.toDouble()?.div(1000000000))}B"
+            if(stat?.grossProfit != null) {
+                dataBinding.stockDetailGrossProfitValue.text = "${df.format(stat.grossProfit.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailGrossProfitValue.text = "-"
+            }
+            if(stat?.costOfRevenue != null) {
+                dataBinding.stockDetailCostOfRevenueValue.text = "${df.format(stat.costOfRevenue.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailCostOfRevenueValue.text = "-"
+            }
+            if(stat?.operatingRevenue != null) {
+                dataBinding.stockDetailOperatingRevenueValue.text = "${df.format(stat.operatingRevenue.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailOperatingRevenueValue.text = "-"
+            }
+            if(stat?.totalRevenue != null) {
+                dataBinding.stockDetailTotalRevenueValue.text = "${df.format(stat.totalRevenue.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailTotalRevenueValue.text = "-"
+            }
+            if(stat?.operatingIncome != null) {
+                dataBinding.stockDetailOperatingIncomeValue.text = "${df.format(stat.operatingIncome.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailOperatingIncomeValue.text = "-"
+            }
+            if(stat?.netIncome != null) {
+                dataBinding.stockDetailNetIncomeValue.text = "${df.format(stat.netIncome.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailNetIncomeValue.text = "-"
+            }
+            if(stat?.researchAndDevelopment != null) {
+                dataBinding.stockDetailRdValue.text = "${df.format(stat.researchAndDevelopment.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailRdValue.text = "-"
+            }
+            if(stat?.operatingExpense != null) {
+                dataBinding.stockDetailOperatingExpenseValue.text = "${df.format(stat.operatingExpense.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailOperatingExpenseValue.text = "-"
+            }
+            if(stat?.currentAssets != null) {
+                dataBinding.stockDetailCurrentAssetsValue.text = "${df.format(stat.currentAssets.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailCurrentAssetsValue.text = "-"
+            }
+            if(stat?.totalAssets != null) {
+                dataBinding.stockDetailTotaltAssetsValue.text = "${df.format(stat.totalAssets.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailTotaltAssetsValue.text = "-"
+            }
+            if(stat?.currentCash != null) {
+                dataBinding.stockDetailCurrentCashValue.text = "${df.format(stat.currentCash.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailCurrentCashValue.text = "-"
+            }
+            if(stat?.totalCash != null) {
+                dataBinding.stockDetailTotalCashValue.text = "${df.format(stat.totalCash.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailTotalCashValue.text = "-"
+            }
+            if(stat?.cashFlow != null) {
+                dataBinding.stockDetailCashFlowValue.text = "${df.format(stat.cashFlow.toDouble().div(1000000000))}B"
+            } else {
+                dataBinding.stockDetailCashFlowValue.text = "-"
+            }
         } else {
             dataBinding.financialCardView.visibility = View.GONE
             dataBinding.imageLabel5.visibility = View.GONE
@@ -149,14 +230,14 @@ class StockDetailFragment : BaseFragment<StockDetailViewModel, FragmentStockDeta
     }
 
     private fun setupGraph() {
-//        viewModel.getTodayChart(symbol).observe(this,
-//            Observer {
-//                println(it)
-//            })
-
-        viewModel.getChart(symbol, "1m").observe(this,
+        viewModel.getTodayChart(symbol).observe(this,
             Observer {
                 println(it)
             })
+
+//        viewModel.getChart(symbol, "1m").observe(this,
+//            Observer {
+//                println(it)
+//            })
     }
 }
