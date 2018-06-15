@@ -1,4 +1,12 @@
-# Android Architecture Components
+# Stocks
+
+<h1 align=center>
+<img src="Logo/horizontal.png" width=50%>
+</h1>
+
+Stocks app with android arch components, rxjava, dagger 2, data binding, retrofit and mote
+
+## Android Architecture Components
 
 A sample app that fatech data from jsonplaceholder.typicode.com with MVVM and Architecture Components using Data binding, Dagger2, RxJava, Retrofit, OkHttp
 
