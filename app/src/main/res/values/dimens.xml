@@ -1,4 +1,24 @@
 <resources>
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="font_size_stat">14sp</dimen>
+
+    <!--Search view item-->
+    <dimen name="search_base_corners">2dp</dimen>
+    <dimen name="search_base_margin">4dp</dimen>
+    <dimen name="search_divider">1dp</dimen>
+    <dimen name="search_filter_margin_start">12dp</dimen>
+    <dimen name="search_filter_margin_top">4dp</dimen>
+    <dimen name="search_height">46dp</dimen>
+    <dimen name="search_icon">46dp</dimen>
+    <dimen name="search_item_height">46dp</dimen>
+    <dimen name="search_item_margin_text">24dp</dimen>
+    <dimen name="search_key_line_16">16dp</dimen>
+    <dimen name="search_key_line_8">8dp</dimen>
+    <dimen name="search_menu_item_margin">1dp</dimen>
+    <dimen name="search_menu_item_margin_left_right">2dp</dimen>
+    <dimen name="search_progress">24dp</dimen>
+    <dimen name="search_reveal">24dp</dimen>
+    <dimen name="search_text_medium">16sp</dimen>
+    <dimen name="search_text_micro">12sp</dimen>
+    <dimen name="search_text_small">14sp</dimen>
 </resources>

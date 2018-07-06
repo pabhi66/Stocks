@@ -26,7 +26,12 @@ data class UserStockList (
 
     @NotNull
     @ColumnInfo(name = "symbol")
-    var symbol: String = ""
+    var symbol: String = "",
+
+    var price: String = "",
+
+    var priceColor: Int = 0
+
 ): Parcelable {
     companion object {
         @JvmField @Suppress("unused")

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="search_cardview" type="id"/>
+    <item name="search_clear" type="id"/>
+    <item name="search_desc" type="id"/>
+    <item name="search_divider" type="id"/>
+    <item name="search_edit_text" type="id"/>
+    <item name="search_extra" type="id"/>
+    <item name="search_icon" type="id"/>
+    <item name="search_item_frame" type="id"/>
+    <item name="search_nav" type="id"/>
+    <item name="search_progress" type="id"/>
+    <item name="search_recycler" type="id"/>
+    <item name="search_shadow" type="id"/>
+    <item name="search_title" type="id"/>
+    <item name="item_search" type="id"/>
+</resources>

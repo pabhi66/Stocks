@@ -4,10 +4,12 @@ import android.databinding.ViewDataBinding
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import com.ap.mobile.stocks.data.repository.StocksRepository
 import com.jakewharton.rxbinding2.view.clicks
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
+import javax.inject.Inject
 
 /**
  * A RecyclerView adapter which uses data binding for items.
@@ -18,14 +20,15 @@ import io.reactivex.subjects.PublishSubject
  * @param id the item method which provides the id used as stable id (see setHasStableIds) (ie Item::id)
  */
 @Suppress("unused")
-open class RxSimpleAdapter<T : Any, U : ViewDataBinding>(
+open class RxSimpleAdapter<T : Any, U : ViewDataBinding> @Inject constructor(
     observable: Observable<List<T>>,
     private val initialValue: List<T>,
     private val inflate: (LayoutInflater, ViewGroup, Boolean) -> U,
     private val set: U.(T) -> Unit,
-    private val id: (T.() -> Long)? = null
-
-) : RxRecyclerAdapter<List<T>, BindingHolder<U>>(observable, initialValue){
+    private val id: (T.() -> Long)? = null,
+    isUserStockList: Boolean? = null,
+    stocksRepository: StocksRepository? = null
+) : RxRecyclerAdapter<List<T>, BindingHolder<U>>(observable, initialValue, isUserStockList, stocksRepository){
 
     @Suppress("MemberVisibilityCanBePrivate")
 

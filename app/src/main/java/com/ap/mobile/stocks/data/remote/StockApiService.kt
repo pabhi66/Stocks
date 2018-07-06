@@ -1,9 +1,12 @@
 package com.ap.mobile.stocks.data.remote
 
+import com.ap.mobile.stocks.data.local.entity.Quote
 import com.ap.mobile.stocks.data.local.entity.Stock
+import com.ap.mobile.stocks.data.local.entity.Symbol
 import com.ap.mobile.stocks.data.local.entity.chart.Chart
 import com.ap.mobile.stocks.data.local.entity.chart.TodayChart
 import io.reactivex.Single
+import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Path
 
@@ -19,8 +22,14 @@ interface StockApiService {
     fun getStockData(@Path("symbol") symbol: String): Single<Stock>
 
     @GET("stock/{symbol}/chart/1d")
-    fun getTodayChart(@Path("symbol") symbol: String): Single<TodayChart>
+    fun getTodayChart(@Path("symbol") symbol: String): Single<List<TodayChart>>
 
     @GET("stock/{symbol}/chart/{range}")
-    fun getChart(@Path("symbol") symbol: String, @Path("range")range:String): Single<Chart>
+    fun getChart(@Path("symbol") symbol: String, @Path("range")range:String): Single<List<Chart>>
+
+    @GET("ref-data/symbols")
+    fun getSymbols(): Single<List<Symbol>>
+
+    @GET("stock/{symbol}/quote")
+    fun getQuote(@Path("symbol") symbol: String): Call<Quote>
 }

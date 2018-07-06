@@ -1,6 +1,6 @@
 ext {
     configuration = [
-            package: "com.ap.mobil.stocks",
+            package: "com.ap.mobile.stocks",
             compileSdkVersion: 27,
             targetSdkVersion : 27,
             minSdkVersion    : 21,

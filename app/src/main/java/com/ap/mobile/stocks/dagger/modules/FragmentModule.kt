@@ -1,7 +1,5 @@
 package com.ap.mobile.stocks.dagger.modules
 
-import com.ap.mobile.stocks.ui.detail.StockDetailDialog
-import com.ap.mobile.stocks.ui.detail.StockDetailFragment
 import com.ap.mobile.stocks.ui.main.MainActivityFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -20,9 +18,4 @@ abstract class FragmentModule {
     @ContributesAndroidInjector
     abstract fun contributeMainFragment(): MainActivityFragment
 
-    @ContributesAndroidInjector
-    abstract fun contributeStockDetailDialogFragment(): StockDetailDialog
-
-    @ContributesAndroidInjector
-    abstract fun contributeStockDetailFragment(): StockDetailFragment
 }

@@ -4,4 +4,44 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="button_image">button_image</string>
+    <string name="chart">Chart</string>
+    <string name="news">News</string>
+    <string name="stats">Stats</string>
+    <string name="open">OPEN</string>
+    <string name="high">HIGH</string>
+    <string name="low">LOW</string>
+    <string name="_52_wk_high">52 WK HIGH</string>
+    <string name="_52_wk_low">52 WK LOW</string>
+    <string name="div_rate">DIV RATE</string>
+    <string name="volume">VOLUME</string>
+    <string name="avg_vol">AVG VOL</string>
+    <string name="mkt_cap">MKT CAP</string>
+    <string name="p_e_ratio">P/E RATIO</string>
+    <string name="ytd">YTD</string>
+    <string name="div_yield">DIV YIELD</string>
+    <string name="earnings">Earnings</string>
+    <string name="financial">Financial</string>
+    <string name="report_date">REPORT DATE</string>
+    <string name="gross_profit">GROSS PROFIT</string>
+    <string name="cost_of_revenue">COST OF REVENUE</string>
+    <string name="operating_revenue">OPERATING REVENUE</string>
+    <string name="total_revenue">TOTAL REVENUE</string>
+    <string name="operating_income">OPERATING INCOME</string>
+    <string name="net_income">NET INCOME</string>
+    <string name="r_and_d">R and D</string>
+    <string name="operating_expanse">OPERATING EXPANSE</string>
+    <string name="current_assets">CURRENT ASSETS</string>
+    <string name="total_assets">TOTAL ASSETS</string>
+    <string name="current_cash">CURRENT CASH</string>
+    <string name="total_cash">TOTAL CASH</string>
+    <string name="cash_flow">CASH FLOW</string>
+    <string name="about">About</string>
+    <string name="_1d">1D</string>
+    <string name="_1m">1M</string>
+    <string name="_3m">3M</string>
+    <string name="_1y">1Y</string>
+    <string name="_5y">5Y</string>
+    <string name="search_title">search</string>
+    <string name="no_match">No Match Found</string>
 </resources>

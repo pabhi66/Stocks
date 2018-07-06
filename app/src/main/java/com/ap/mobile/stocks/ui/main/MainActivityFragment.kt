@@ -9,9 +9,7 @@ import android.support.v7.widget.SearchView
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import android.widget.Toast
 import com.ap.mobile.stocks.R
-import com.ap.mobile.stocks.data.local.entity.UserStockList
 import com.ap.mobile.stocks.databinding.FragmentMainBinding
 import com.ap.mobile.stocks.databinding.RecyclerviewStocksListBinding
 import com.ap.mobile.stocks.ui.base.BaseFragment
@@ -20,12 +18,12 @@ import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import android.support.v7.widget.helper.ItemTouchHelper
 import android.util.Log
-import com.ap.mobile.stocks.ui.detail.StockDetailActivity
+import com.ap.mobile.stocks.data.local.entity.UserStockList
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.ItemTouchHelperAdapter
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RecyclerViewItemTouchHelper
+import com.ap.mobile.stocks.ui.views.searchview.SearchItem
+import com.ap.mobile.stocks.ui.views.searchview.bindSearchView
 import java.util.*
-import com.ap.mobile.stocks.ui.detail.StockDetailDialog
-import com.ap.mobile.stocks.ui.detail.StockDetailFragment
 import com.ap.mobile.stocks.util.ActivityUtil
 
 
@@ -39,65 +37,73 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
         private val TAG = MainActivityFragment::class.java.simpleName
     }
 
+    // GET VIEW MODEL
     override fun getViewModel(): Class<MainViewModel> = MainViewModel::class.java
 
+    // GET LAYOUT RES
     override fun getLayoutRes(): Int = R.layout.fragment_main
 
+    // ON CREATE
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setHasOptionsMenu(true)
+        setHasOptionsMenu(true) // set up menu
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {
+    // SET UP MENU
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater?) {
         inflater?.inflate(R.menu.menu_main, menu)
-        val searchViewItem = menu?.findItem(R.id.action_search)
-        // Get the SearchView and set the searchable configuration
-        val searchView = searchViewItem?.actionView as SearchView
-
-        setupSearchView(searchView)
-        super.onCreateOptionsMenu(menu, inflater)
+        setupSearchView(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        return when (item?.itemId) {
-            R.id.action_search -> true
-            else -> super.onOptionsItemSelected(item)
+    // ON ACTIVITY CREATED
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        setHasOptionsMenu(true)
+        setupRecyclerView()
+        setupSwipeToRefresh()
+    }
+
+    private fun setupSwipeToRefresh() {
+        dataBinding.swiperefresh.setOnRefreshListener {
+            setupRecyclerView()
         }
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        setupRecyclerView()
-        setupPriceButton()
-    }
-
+    /**
+     * set up recycler view with adapter and on click listener
+     * also set up swipe and drag listeners
+     */
     private fun setupRecyclerView() {
+        // get user's stock list
         viewModel.getUserStockList().observe(
             this , Observer {
+                    // if list is not null set up recycler view
                     if(it != null) {
                         dataBinding.stocksFavRecyclerView.apply {
                             adapter = RxSimpleAdapter(
                                 Observable.fromArray(viewModel.userStocksList.value!!),
                                 viewModel.userStocksList.value!!,
                                 RecyclerviewStocksListBinding::inflate,
-                                RecyclerviewStocksListBinding::setViewModel
+                                RecyclerviewStocksListBinding::setViewModel,
+                                isUserStockList = true,
+                                stocksRepository = viewModel.stocksRepository
                             ).apply {
                                 clicks.bindToLifecycle(view!!).subscribe {
-                                    //Snackbar.make(view!!, it.symbol, Snackbar.LENGTH_SHORT).show()
-                                    //StockDetailDialog.newInstance(it.symbol).show(fragmentManager, "stockDetails")
-                                    // startActivity(StockDetailActivity.newIntent(context, it.symbol))
-                                    ActivityUtil.addFragmentToActivity(fragmentManager!!, StockDetailFragment.newInstance(it.symbol), R.id.fragment)
+                                    // ActivityUtil.addFragmentToActivity(fragmentManager!!, StockDetailFragment.newInstance(it.symbol), R.id.fragment)
                                 }
                             }
                         }
                     }
+
+            // set fixed size to false
             dataBinding.stocksFavRecyclerView.setHasFixedSize(false)
+
+            // set up drag and swipe listener
             val callback = RecyclerViewItemTouchHelper(object: ItemTouchHelperAdapter {
                 /**
-                 * recycler view on item move
+                 * recycler view on item dragged
                  */
                 override fun onItemMove(fromPosition: Int, toPosition: Int) {
-                    Log.e("dragged", "dragged")
                     // must call
                     if(fromPosition < toPosition) {
                         for (i in fromPosition until toPosition) {
@@ -112,10 +118,9 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
                 }
 
                 /**
-                 * recycler view item dismissed
+                 * recycler view item swiped
                  */
                 override fun onItemDismiss(position: Int) {
-                    Log.e("swiped", "swiped")
                     // must call
                     viewModel.deleteStock(viewModel.getUserStockList().value!![position].symbol)
                     dataBinding.stocksFavRecyclerView.adapter.notifyItemRemoved(position)
@@ -125,38 +130,37 @@ class MainActivityFragment : BaseFragment<MainViewModel, FragmentMainBinding>() 
             val touchHelper = ItemTouchHelper(callback)
             touchHelper.attachToRecyclerView(dataBinding.stocksFavRecyclerView)
         })
-    }
-
-    private fun setupSearchView(searchView: SearchView) {
-        val searchManager = context?.getSystemService(Context.SEARCH_SERVICE) as SearchManager
-        searchView.queryHint = "Search Stock Symbol"
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(activity?.componentName))
-        searchView.setIconifiedByDefault(true)
-        val queryTextListener = object : SearchView.OnQueryTextListener {
-            override fun onQueryTextChange(newText: String): Boolean {
-                return true
-            }
-
-            override fun onQueryTextSubmit(query: String): Boolean {
-                // **Here you can get the value "query" which is entered in the search box.**
-
-                viewModel.getStockData(symbol = query).observe(this@MainActivityFragment, Observer {
-                    if(it != null) {
-                        viewModel.insertStockToUserList(UserStockList(0, it.company?.companyName!!, it.company.symbol!!))
-                        Snackbar.make(view!!, "high: ${it.quote?.high}, low: ${it.quote?.low}, current: ${it.quote?.latestPrice}", Snackbar.LENGTH_SHORT).show()
-                    } else {
-                        Snackbar.make(view!!, "Symbol Not Found", Snackbar.LENGTH_SHORT).show()
-                    }
-                })
-                searchView.clearFocus()
-                return true
-            }
+        if(dataBinding.swiperefresh.isRefreshing) {
+            dataBinding.swiperefresh.isRefreshing = false
         }
-        searchView.setOnQueryTextListener(queryTextListener)
     }
 
-    private fun setupPriceButton() {
-
+    // SWT UP SEARCH VIEW
+    private fun setupSearchView(menu: Menu) {
+        // FIRST GET SYMBOLS FROM THE DATABASE THEN SETUP SEARCH VIEW
+        // NEEDS INTERNET CONNECTION
+        // OTHERWISE SEARCH WILL NOT WORK
+        viewModel.getStockSymbols().observe(this,
+            Observer {
+                activity?.bindSearchView(menu, R.id.action_search){
+                    textCallback = { query, searchView ->
+                        val items = it?.filter {
+                            it.symbol!!.startsWith(query, ignoreCase = true) || it.name!!.startsWith(query, ignoreCase = true)
+                        }?.map {
+                            SearchItem(it.symbol!!, description = it.name)
+                        }
+                        searchView.results = items!!
+                    }
+                    textDebounceInterval = 0
+                    noResultsFound = R.string.no_match
+                    shouldClearOnClose = false
+                    foregroundColor = R.color.black1
+                    onItemClick = { _, _, content, searchView ->
+                        searchView.revealClose()
+                        // ActivityUtil.addFragmentToActivity(fragmentManager!!, StockDetailFragment.newInstance(content), R.id.fragment)
+                        viewModel.insertStockToUserList(content, this@MainActivityFragment)
+                    }
+                }
+            })
     }
-
 }

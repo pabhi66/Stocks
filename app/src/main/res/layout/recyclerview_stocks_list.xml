@@ -22,14 +22,12 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardUseCompatPadding="true"
-            android:layout_marginEnd="8dp"
-            android:layout_marginStart="8dp"
             >
 
             <android.support.constraint.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/background_dark_border"
+                android:background="@color/black2"
                 >
 
                 <TextView
@@ -48,7 +46,7 @@
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toTopOf="@id/rv_company"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/rv_button"
+                    app:layout_constraintRight_toLeftOf="@+id/rv_price"
                     app:layout_constraintHorizontal_bias="0"/>
 
                 <TextView
@@ -65,19 +63,19 @@
                     app:layout_constraintTop_toBottomOf="@id/rv_symbol"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toLeftOf="@+id/rv_button"
+                    app:layout_constraintRight_toLeftOf="@+id/rv_price"
                     app:layout_constraintHorizontal_bias="0"
                     tools:text="Company Name" />
 
                 <TextView
-                    android:id="@+id/rv_button"
+                    android:id="@+id/rv_price"
                     android:layout_width="100dp"
                     android:layout_height="0dp"
                     android:layout_marginStart="20dp"
                     android:layout_marginEnd="20dp"
                     android:textSize="20sp"
-                    android:textColor="@color/green"
-                    android:text="$100"
+                    android:textColor="@{viewModel.priceColor >= 0 ? @color/green : @color/red}"
+                    android:text="@{viewModel.price}"
                     android:gravity="center"
                     app:layout_constraintRight_toRightOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
