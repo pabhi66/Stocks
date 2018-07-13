@@ -6,6 +6,9 @@
 
 Stocks app with android arch components, rxjava, dagger 2, data binding, retrofit and mote
 
+### Stock Data
+All the data is provided for free by [IEX](https://iextrading.com/developer). View [IEX’s Terms of Use](https://iextrading.com/api-exhibit-a/).
+
 ## Android Architecture Components
 
 A sample app that fatech data from jsonplaceholder.typicode.com with MVVM and Architecture Components using Data binding, Dagger2, RxJava, Retrofit, OkHttp
