@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/image_label"
+            style="@style/TextAppearance.Image">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                style="@style/TextAppearance.ImageImage"/>
+
+            <TextView
+                android:text="Financials"
+                android:layout_alignStart="@+id/myImageView"
+                android:layout_alignTop="@+id/myImageView"
+                android:layout_alignEnd="@+id/myImageView"
+                android:layout_alignBottom="@+id/myImageView"
+                style="@style/TextAppearance.ImageLabel"/>
+        </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black1"
+            app:layout_constraintTop_toBottomOf="@+id/image_label">
+
+            <TextView
+                android:id="@+id/stock_detail_report_date"
+                style="@style/TextAppearance.Stat"
+                android:text="@string/report_date"
+                tools:text="REPORT DATE"
+                app:layout_constraintStart_toStartOf="parent" />
+
+            <TextView
+                android:id="@+id/stock_detail_report_date_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                />
+
+            <TextView
+                android:id="@+id/stock_detail_gross_profit"
+                style="@style/TextAppearance.Stat"
+                tools:text="GROSS PROFIT"
+                android:text="@string/gross_profit"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_report_date"/>
+
+            <TextView
+                android:id="@+id/stock_detail_gross_profit_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_report_date"/>
+
+            <TextView
+                android:id="@+id/stock_detail_cost_of_revenue"
+                style="@style/TextAppearance.Stat"
+                tools:text="COST OF REVENUE"
+                android:text="@string/cost_of_revenue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_gross_profit"/>
+
+            <TextView
+                android:id="@+id/stock_detail_cost_of_revenue_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_gross_profit"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_revenue"
+                style="@style/TextAppearance.Stat"
+                tools:text="OPERATING REVENUE"
+                android:text="@string/operating_revenue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_cost_of_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_revenue_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_cost_of_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_total_revenue"
+                style="@style/TextAppearance.Stat"
+                tools:text="TOTAL REVENUE"
+                android:text="@string/total_revenue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_total_revenue_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_income"
+                style="@style/TextAppearance.Stat"
+                tools:text="OPERATING INCOME"
+                android:text="@string/operating_income"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_total_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_income_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_total_revenue"/>
+
+            <TextView
+                android:id="@+id/stock_detail_net_income"
+                style="@style/TextAppearance.Stat"
+                android:text="@string/net_income"
+                tools:text="NET INCOME"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_income"/>
+
+            <TextView
+                android:id="@+id/stock_detail_net_income_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_income"/>
+
+            <TextView
+                android:id="@+id/stock_detail_rd"
+                style="@style/TextAppearance.Stat"
+                tools:text="R and D"
+                android:text="@string/r_and_d"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_net_income"/>
+
+            <TextView
+                android:id="@+id/stock_detail_rd_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_net_income"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_expense"
+                style="@style/TextAppearance.Stat"
+                tools:text="OPERATING EXPANSE"
+                android:text="@string/operating_expanse"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_rd"/>
+
+            <TextView
+                android:id="@+id/stock_detail_operating_expense_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_rd"/>
+
+            <TextView
+                android:id="@+id/stock_detail_currentAssets"
+                style="@style/TextAppearance.Stat"
+                tools:text="CURRENT ASSETS"
+                android:text="@string/current_assets"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_expense"/>
+
+            <TextView
+                android:id="@+id/stock_detail_currentAssets_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_operating_expense"/>
+
+            <TextView
+                android:id="@+id/stock_detail_totalAssets"
+                style="@style/TextAppearance.Stat"
+                tools:text="TOTAL ASSETS"
+                android:text="@string/total_assets"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentAssets"/>
+
+            <TextView
+                android:id="@+id/stock_detail_totaltAssets_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentAssets"/>
+
+            <TextView
+                android:id="@+id/stock_detail_currentCash"
+                style="@style/TextAppearance.Stat"
+                tools:text="CURRENT CASH"
+                android:text="@string/current_cash"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalAssets"/>
+
+            <TextView
+                android:id="@+id/stock_detail_currentCash_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalAssets"/>
+
+            <TextView
+                android:id="@+id/stock_detail_totalCash"
+                style="@style/TextAppearance.Stat"
+                tools:text="TOTAL CASH"
+                android:text="@string/total_cash"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentCash"/>
+
+            <TextView
+                android:id="@+id/stock_detail_totalCash_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_currentCash"/>
+
+            <TextView
+                android:id="@+id/stock_detail_cashFlow"
+                style="@style/TextAppearance.Stat"
+                tools:text="CASH FLOW"
+                android:text="@string/cash_flow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalCash"/>
+
+            <TextView
+                android:id="@+id/stock_detail_cashFlow_value"
+                style="@style/TextAppearance.Stat.Price"
+                tools:text="123"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stock_detail_totalCash"/>
+
+
+
+        </android.support.constraint.ConstraintLayout>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,4 +1,4 @@
-package com.ap.mobile.stocks.dagger.modules
+package com.ap.mobile.stocks.di.modules
 
 import android.app.Application
 import android.arch.persistence.room.Room

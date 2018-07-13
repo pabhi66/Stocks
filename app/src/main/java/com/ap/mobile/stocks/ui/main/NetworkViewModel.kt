@@ -1,6 +1,10 @@
 package com.ap.mobile.stocks.ui.main
 
-import android.arch.lifecycle.*
+import android.arch.lifecycle.LifecycleOwner
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModel
 import android.os.Handler
 import android.util.Log
 import com.ap.mobile.stocks.data.local.entity.Stock
@@ -13,14 +17,13 @@ import com.ap.mobile.stocks.data.repository.UserStockListRepository
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 
-class MainViewModel @Inject constructor(
-    val stocksRepository: StocksRepository,
-    private val userStockListRepository: UserStockListRepository
+class NetworkViewModel @Inject constructor(
+        val stocksRepository: StocksRepository,
+        private val userStockListRepository: UserStockListRepository
 ): ViewModel() {
 
-
     companion object {
-        private val TAG = MainViewModel::class.java.simpleName
+        private val TAG = NetworkViewModel::class.java.simpleName
     }
 
 
@@ -38,12 +41,11 @@ class MainViewModel @Inject constructor(
         get() = stockLiveList
 
     fun getStockData(symbol: String): LiveData<Stock> {
-        Log.e(TAG, symbol)
         disposable.add(stocksRepository.getStockData(symbol)
-            .subscribe{
-                response, error -> stockLiveList.value = response
-                if(error != null) Log.e(TAG, "symbol: $symbol not found. Error: $error")
-            })
+                .subscribe{
+                    response, error -> stockLiveList.value = response
+                    if(error != null) Log.e(TAG, "symbol: $symbol not found. Error: $error")
+                })
         return stockData
     }
 
@@ -56,9 +58,9 @@ class MainViewModel @Inject constructor(
 
     fun getUserStockList(): LiveData<List<UserStockList>> {
         disposable.add(userStockListRepository.getUserStockList()
-            .subscribe{
-                response -> userStockListLiveList.value = response
-            })
+                .subscribe{
+                    response -> userStockListLiveList.value = response
+                })
 
         return userStocksList
     }
@@ -72,10 +74,11 @@ class MainViewModel @Inject constructor(
 
     fun getStockSymbols(): LiveData<List<Symbol>> {
         disposable.add(stocksRepository.getSymbols()
-            .subscribe{
-                response, error -> stockSymbolLiveList.value = response
-                if(error != null) Log.e(TAG, "unable to get symbols")
-            })
+                .subscribe{
+                    response, error ->
+                    if(error != null) Log.e(TAG, "unable to get symbols")
+                    else stockSymbolLiveList.value = response
+                })
         return stockSymbolData
     }
 
@@ -120,10 +123,10 @@ class MainViewModel @Inject constructor(
 
     fun getChart(symbol: String, range: String): LiveData<List<Chart>> {
         disposable.add(stocksRepository.getChart(symbol, range)
-            .subscribe {
-                response , error -> stockLiveChart.value = response
-                if(error != null) Log.e(TAG, "unable to get chart: $error")
-            })
+                .subscribe {
+                    response , error -> stockLiveChart.value = response
+                    if(error != null) Log.e(TAG, "unable to get chart: $error")
+                })
         return stockChartData
     }
 
@@ -136,11 +139,10 @@ class MainViewModel @Inject constructor(
 
     fun getTodayChart(symbol: String): LiveData<List<TodayChart>> {
         disposable.add(stocksRepository.getTodayChart(symbol)
-            .subscribe {
-                response , error -> stockLiveChartToday.value = response
-                if(error != null) Log.e(TAG, "unable to get chart: $error")
-            })
+                .subscribe {
+                    response , error -> stockLiveChartToday.value = response
+                    if(error != null) Log.e(TAG, "unable to get chart: $error")
+                })
         return stockChartDataToday
     }
-
 }

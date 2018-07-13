@@ -43,7 +43,7 @@ ext {
             support          : "com.android.support:support-v4:$libraries.support"
     ]
 
-    kotlin = [
+    kotlinn = [
             kotlin: "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     ]
 
@@ -90,7 +90,7 @@ ext {
     ]
 
     supportLibraries = supportDeps.values()
-    kotlinLibrary = kotlin.values()
+    kotlinLibrary = kotlinn.values()
     androidArchLibraries = androidArch.values()
     networkLibraries = retrofit.values() + gson.values() + okHttp.values()
     rxJavaLibraries = rxJava.values()

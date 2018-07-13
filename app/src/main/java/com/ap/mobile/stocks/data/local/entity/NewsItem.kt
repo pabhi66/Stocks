@@ -24,4 +24,8 @@ data class NewsItem(
 
 	@field:SerializedName("url")
 	val url: String? = null
-)
+) {
+	fun getFormattedDate() {
+
+	}
+}

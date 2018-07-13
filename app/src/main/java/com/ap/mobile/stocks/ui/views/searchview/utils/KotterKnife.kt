@@ -18,7 +18,6 @@ import android.support.v4.app.Fragment as SupportFragment
  *
  * Kotter knife library from Jake Wharton[https://github.com/JakeWharton/kotterknife]
  */
-
 fun <V : View> View.bindView(id: Int)
         : ReadOnlyProperty<View, V> = required(id, viewFinder)
 

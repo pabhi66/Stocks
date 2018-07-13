@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/image_label"
+            style="@style/TextAppearance.Image">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                style="@style/TextAppearance.ImageImage"/>
+
+            <TextView
+                android:text="Stats"
+                android:layout_alignStart="@+id/myImageView"
+                android:layout_alignTop="@+id/myImageView"
+                android:layout_alignEnd="@+id/myImageView"
+                android:layout_alignBottom="@+id/myImageView"
+                style="@style/TextAppearance.ImageLabel"/>
+        </RelativeLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/black1"
+            app:layout_constraintTop_toBottomOf="@+id/image_label">
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/left"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@+id/right"
+                >
+
+                <TextView
+                    android:id="@+id/stock_detail_open"
+                    android:text="@string/open"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="OPEN"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/stock_detail_open_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_open" />
+
+                <TextView
+                    android:id="@+id/stock_detail_high"
+                    android:text="@string/high"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="HIGH"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_high_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_open" />
+
+                <TextView
+                    android:id="@+id/stock_detail_high_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_high"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_open" />
+
+                <TextView
+                    android:id="@+id/stock_detail_low"
+                    android:text="@string/low"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="LOW"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_low_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_high" />
+
+                <TextView
+                    android:id="@+id/stock_detail_low_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_low"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_high" />
+
+                <TextView
+                    android:id="@+id/stock_detail_52high"
+                    android:text="@string/_52_wk_high"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="52 WK HIGH"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_52high_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_low" />
+
+                <TextView
+                    android:id="@+id/stock_detail_52high_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_52high"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_low" />
+
+                <TextView
+                    android:id="@+id/stock_detail_52low"
+                    android:text="@string/_52_wk_low"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="52 WK LOW"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_52low_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_52high" />
+
+                <TextView
+                    android:id="@+id/stock_detail_52low_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_52low"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_52high" />
+
+                <TextView
+                    android:id="@+id/stock_detail_div_rate"
+                    android:text="@string/div_rate"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="DIV RATE"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_div_rate_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_52low" />
+
+                <TextView
+                    android:id="@+id/stock_detail_div_rate_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_div_rate"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_52low" />
+
+            </android.support.constraint.ConstraintLayout>
+
+            <android.support.constraint.ConstraintLayout
+                android:id="@+id/right"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintLeft_toRightOf="@+id/left"
+                app:layout_constraintRight_toRightOf="parent">
+
+                <TextView
+                    android:id="@+id/stock_detail_volume"
+                    android:text="@string/volume"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="VOLUME"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+                <TextView
+                    android:id="@+id/stock_detail_volume_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_volume" />
+
+                <TextView
+                    android:id="@+id/stock_detail_AvgVolume"
+                    android:text="@string/avg_vol"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="AVG VOL"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_AvgVolume_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_volume" />
+
+                <TextView
+                    android:id="@+id/stock_detail_AvgVolume_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_AvgVolume"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_volume" />
+
+                <TextView
+                    android:id="@+id/stock_detail_mktcap"
+                    android:text="@string/mkt_cap"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="MKT CAP"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_mktcap_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_AvgVolume" />
+
+                <TextView
+                    android:id="@+id/stock_detail_mktcap_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_mktcap"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_AvgVolume" />
+
+                <TextView
+                    android:id="@+id/stock_detail_peratio"
+                    android:text="@string/p_e_ratio"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="P/E RATIO"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_peratio_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_mktcap" />
+
+                <TextView
+                    android:id="@+id/stock_detail_peratio_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_peratio"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_mktcap" />
+
+                <TextView
+                    android:id="@+id/stock_detail_ytd"
+                    android:text="@string/ytd"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="YTD"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_ytd_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_peratio" />
+
+                <TextView
+                    android:id="@+id/stock_detail_ytd_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_ytd"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_peratio" />
+
+                <TextView
+                    android:id="@+id/stock_detail_div_yield"
+                    android:text="@string/div_yield"
+                    style="@style/TextAppearance.Stat"
+                    tools:text="DIV YIELD"
+                    app:layout_constraintRight_toLeftOf="@+id/stock_detail_div_yield_value"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_ytd" />
+
+                <TextView
+                    android:id="@+id/stock_detail_div_yield_value"
+                    style="@style/TextAppearance.Stat.Price"
+                    tools:text="123"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toRightOf="@+id/stock_detail_div_yield"
+                    app:layout_constraintTop_toBottomOf="@+id/stock_detail_ytd" />
+
+
+            </android.support.constraint.ConstraintLayout>
+        </android.support.constraint.ConstraintLayout>
+    </android.support.constraint.ConstraintLayout>
+</layout>

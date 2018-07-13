@@ -1,4 +1,4 @@
-package com.ap.mobile.stocks.dagger
+package com.ap.mobile.stocks.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider

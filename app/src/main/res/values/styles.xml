@@ -1,27 +1,86 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
-
-    <style name="AppTheme.NoActionBar">
-        <item name="windowActionBar">false</item>
-        <item name="windowNoTitle">true</item>
-    </style>
-
-    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+
+    <!--Text styles-->
+    <style name="TextAppearance" parent="TextAppearance.AppCompat"/>
+    <!--Stock details image label-->
+    <style name="TextAppearance.ImageLabel">
+        <item name="android:gravity">center</item>
+        <item name="android:fontFamily">@font/comfortaa_light</item>
+        <item name="android:textColor">@color/grey1</item>
+        <item name="android:textSize">12sp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+    <!--stock details image image (red half circle)-->
+    <style name="TextAppearance.ImageImage">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:src">@drawable/button_half_circle</item>
+    </style>
+    <!--stock details image-->
+    <style name="TextAppearance.Image">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:paddingTop">20dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+    <!--stock details stat text-->
+    <style name="TextAppearance.Stat">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:fontFamily">@font/comfortaa_bold</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/font_size_stat</item>
+        <item name="android:textColor">@color/grey1</item>
+    </style>
+    <!--stock details stat text price-->
+    <style name="TextAppearance.Stat.Price">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:fontFamily">@font/comfortaa_light</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:textSize">@dimen/font_size_stat</item>
+        <item name="android:textColor">@color/grey1</item>
+    </style>
+
+    <!--stock details tool bar-->
+    <style name="ToolBarWithNavigationBack">
+        <item name="navigationIcon">@drawable/abc_ic_ab_back_material</item>
+    </style>
+
+    <!--stock details card view-->
+    <style name="CardView.Detail">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_margin">8dp</item>
+    </style>
+
+    <!--stock tool bar collapsing tool bar text and style-->
+    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+    <style name="CollapsingTextAppearance.Inverse" >
+        <item name="android:textSize">30sp</item>
+    </style>
+
+    <!--splash screen-->
     <style name="splashScreenTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="android:windowBackground">@drawable/splash_screen</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
 
 </resources>

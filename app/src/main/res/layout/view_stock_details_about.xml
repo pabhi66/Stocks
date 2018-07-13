@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/image_label"
+            style="@style/TextAppearance.Image">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                style="@style/TextAppearance.ImageImage"/>
+
+            <TextView
+                android:text="About"
+                android:layout_alignStart="@+id/myImageView"
+                android:layout_alignTop="@+id/myImageView"
+                android:layout_alignEnd="@+id/myImageView"
+                android:layout_alignBottom="@+id/myImageView"
+                style="@style/TextAppearance.ImageLabel"/>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/company_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="@dimen/font_size_stat"
+            android:textColor="@color/grey1"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/image_label"
+            />
+
+        <TextView
+            android:id="@+id/company_ceo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="@dimen/font_size_stat"
+            android:textColor="@color/grey1"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/company_description"
+            />
+
+        <TextView
+            android:id="@+id/company_sector"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="@dimen/font_size_stat"
+            android:textColor="@color/grey1"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/company_ceo"
+            />
+
+        <TextView
+            android:id="@+id/company_industry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="@dimen/font_size_stat"
+            android:textColor="@color/grey1"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/company_sector"
+            />
+
+        <TextView
+            android:id="@+id/company_exchange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="description"
+            android:fontFamily="@font/comfortaa_light"
+            android:textSize="@dimen/font_size_stat"
+            android:textColor="@color/grey1"
+            android:layout_margin="15dp"
+            app:layout_constraintTop_toBottomOf="@+id/company_industry"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

@@ -1,7 +1,6 @@
 package com.ap.mobile.stocks.ui.views.rxrecyclerview
 
 import android.databinding.ViewDataBinding
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.ap.mobile.stocks.data.repository.StocksRepository

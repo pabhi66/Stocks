@@ -15,15 +15,16 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
-        debug {
-            minifyEnabled false
-            shrinkResources false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
         release {
             minifyEnabled true
             shrinkResources true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            applicationIdSuffix ".debug"
+            debuggable true
         }
     }
 
@@ -72,25 +73,6 @@ repositories {
     jcenter()
 }
 
-configurations {
-    ktlint
-}
-
-task ktlint(type: JavaExec, group: "verification") {
-    description = "Check Kotlin code style."
-    classpath = configurations.ktlint
-    main = "com.github.shyiko.ktlint.Main"
-    args "src/**/*.kt"
-}
-check.dependsOn ktlint
-
-task ktlintFormat(type: JavaExec, group: "formatting") {
-    description = "Fix Kotlin code style deviations."
-    classpath = configurations.ktlint
-    main = "com.github.shyiko.ktlint.Main"
-    args "-F", "src/**/*.kt"
-}
-
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation kotlinLibrary
@@ -101,18 +83,16 @@ dependencies {
     implementation daggerLibraries
     implementation sethoLibraries
 
-    //k lint
-    ktlint "com.github.shyiko:ktlint:0.23.1"
-
     implementation "com.trello.rxlifecycle2:rxlifecycle-kotlin:2.2.1"
     implementation "com.jakewharton.rxbinding2:rxbinding-kotlin:2.1.1"
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+    implementation 'com.github.pabhi66:Android-Customizable-Buttons:-SNAPSHOT'
 
     implementation 'com.mikepenz:fastadapter-commons:3.2.7'
     implementation "com.mikepenz:iconics-core:3.0.4@aar"
     implementation 'com.mikepenz:google-material-typeface:3.0.1.2.original@aar'
 
-
+    implementation 'com.android.support.constraint:constraint-layout:1.1.2'
     kapt roomCompiler
     kapt annotationCompilerLibraries
 

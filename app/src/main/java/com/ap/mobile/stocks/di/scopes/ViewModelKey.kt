@@ -1,4 +1,4 @@
-package com.ap.mobile.stocks.dagger.scopes
+package com.ap.mobile.stocks.di.scopes
 
 import android.arch.lifecycle.ViewModel
 import dagger.MapKey

@@ -2,13 +2,13 @@ package com.ap.mobile.stocks
 
 import android.app.Activity
 import android.app.Application
+import com.ap.mobile.stocks.di.components.DaggerAppComponent
 import com.facebook.stetho.Stetho
 import com.squareup.leakcanary.LeakCanary
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
 import javax.inject.Inject
-import com.ap.mobile.stocks.dagger.components.DaggerAppComponent
 
 class App: Application(), HasActivityInjector {
 

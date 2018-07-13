@@ -25,7 +25,6 @@ import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import com.ap.mobile.stocks.ui.views.searchview.utils.*
 import com.mikepenz.iconics.IconicsDrawable
 import com.mikepenz.iconics.typeface.IIcon
 
@@ -78,6 +77,7 @@ inline fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) {
 fun View.snackbar(@StringRes textId: Int, duration: Int = Snackbar.LENGTH_LONG, builder: Snackbar.() -> Unit = {})
         = snackbar(context.string(textId), duration, builder)
 
+ @SuppressLint("ResourceType")
  fun TextView.setTextIfValid(@StringRes id: Int) {
     if (id > 0) text = context.string(id)
 }

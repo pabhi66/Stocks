@@ -1,6 +1,7 @@
-package com.ap.mobile.stocks.dagger.modules
+package com.ap.mobile.stocks.di.modules
 
 import com.ap.mobile.stocks.ui.main.MainActivity
+import com.ap.mobile.stocks.ui.detail.StockDetailsActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -17,4 +18,8 @@ abstract class ActivityModule {
 
     @ContributesAndroidInjector(modules = [(FragmentModule::class)])
     abstract fun mainActivity(): MainActivity
+
+    @ContributesAndroidInjector(modules = [(FragmentModule::class)])
+    abstract fun detailsActivity(): StockDetailsActivity
+
 }

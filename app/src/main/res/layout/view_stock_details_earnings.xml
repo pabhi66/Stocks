@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/image_label1"
+            style="@style/TextAppearance.Image">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                style="@style/TextAppearance.ImageImage"/>
+
+            <TextView
+                android:text="Earnings"
+                android:layout_alignStart="@+id/myImageView"
+                android:layout_alignTop="@+id/myImageView"
+                android:layout_alignEnd="@+id/myImageView"
+                android:layout_alignBottom="@+id/myImageView"
+                style="@style/TextAppearance.ImageLabel"/>
+        </RelativeLayout>
+
+        <com.github.mikephil.charting.charts.BubbleChart
+            android:id="@+id/stock_detail_graph"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            app:layout_constraintTop_toBottomOf="@+id/image_label1"/>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

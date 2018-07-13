@@ -12,10 +12,10 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.ap.mobile.stocks.R
 import com.ap.mobile.stocks.ui.views.searchview.helper.SearchItemBase
-import com.ap.mobile.stocks.ui.views.searchview.utils.*
 import com.ap.mobile.stocks.util.*
 import com.mikepenz.google_material_typeface_library.GoogleMaterial
 import com.mikepenz.iconics.typeface.IIcon
+import com.ap.mobile.stocks.ui.views.searchview.utils.*
 
 /**
  * A holder for each individual search item

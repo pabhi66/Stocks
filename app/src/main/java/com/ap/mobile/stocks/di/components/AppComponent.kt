@@ -1,9 +1,9 @@
-package com.ap.mobile.stocks.dagger.components
+package com.ap.mobile.stocks.di.components
 
 import android.app.Application
 import com.ap.mobile.stocks.App
-import com.ap.mobile.stocks.dagger.modules.ActivityModule
-import com.ap.mobile.stocks.dagger.modules.AppModule
+import com.ap.mobile.stocks.di.modules.ActivityModule
+import com.ap.mobile.stocks.di.modules.AppModule
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
