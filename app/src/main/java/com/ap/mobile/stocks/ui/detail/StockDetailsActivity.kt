@@ -1,23 +1,32 @@
 package com.ap.mobile.stocks.ui.detail
 
-import android.annotation.SuppressLint
 import android.arch.lifecycle.Observer
 import android.content.Context
 import android.content.Intent
+import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewCompat
+import android.util.Log
 import android.view.View
-import android.widget.Toast
 import com.ap.mobile.stocks.R
 import com.ap.mobile.stocks.data.local.entity.NewsItem
 import com.ap.mobile.stocks.data.local.entity.Stock
+import com.ap.mobile.stocks.data.local.entity.chart.Chart
 import com.ap.mobile.stocks.databinding.ActivityStockDetailsBinding
 import com.ap.mobile.stocks.databinding.RecyclerviewStockNewsListBinding
 import com.ap.mobile.stocks.ui.base.BaseActivityWithVM
 import com.ap.mobile.stocks.ui.main.NetworkViewModel
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RxSimpleAdapter
 import com.ap.mobile.stocks.util.*
+import com.github.mikephil.charting.components.XAxis
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IAxisValueFormatter
+import com.github.mikephil.charting.highlight.Highlight
+import com.github.mikephil.charting.interfaces.datasets.IBubbleDataSet
+import com.github.mikephil.charting.interfaces.datasets.ILineDataSet
+import com.github.mikephil.charting.listener.OnChartValueSelectedListener
+import com.github.mikephil.charting.utils.MPPointF
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
 import java.math.RoundingMode
@@ -25,7 +34,7 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.*
 
-@Suppress("SetTextI18n","UNCHECKED_CAST")
+@Suppress("SetTextI18n","UNCHECKED_CAST", "NAME_SHADOWING")
 class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockDetailsBinding>(), AppBarLayout.OnOffsetChangedListener {
 
     private lateinit var symbol: String
@@ -55,6 +64,10 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        if(!NetworkUtil.isInternetConnected(this))
+
+            Log.e("symbol", intent.getStringExtra(SYMBOL) + intent.getStringArrayExtra(COMPANY))
+
         symbol = intent.getStringExtra(SYMBOL)
         company = intent.getStringExtra(COMPANY)
 
@@ -69,6 +82,14 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
         loadData()
     }
 
+    override fun onResume() {
+        super.onResume()
+        // check if there is internet access
+        if (!NetworkUtil.isInternetConnected(this)) {
+            this.alert("You are not connected to the Internet. Please check your connection and try again.")
+        }
+    }
+
     private fun loadData() {
         dataBinding.stockDetailSymbol.text = symbol
         dataBinding.stockDetailCompany.text = company
@@ -79,6 +100,8 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
             setupStats(it)
             setupAbout(it)
             setupFinancial(it)
+            setupGraph(it)
+            setupEarnings(it)
         })
     }
 
@@ -89,9 +112,13 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
         if(quote.changePercent!! < 0) {
             dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.red))
             dataBinding.stockDetailPrice.setTextColor(this.color(R.color.red))
+            dataBinding.triangle.setImageDrawable(this.drawable(R.drawable.ic_triangle_green))
+            dataBinding.triangle.rotation = 180f
+            dataBinding.triangle.setColorFilter(this.color(R.color.red))
         } else {
             dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.green))
             dataBinding.stockDetailPrice.setTextColor(this.color(R.color.green))
+            dataBinding.triangle.setImageDrawable(this.drawable(R.drawable.ic_triangle_green))
         }
         var x = "M"
         val div: Int
@@ -118,7 +145,9 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
                             RecyclerviewStockNewsListBinding::setNews
                     ).apply {
                         clicks.bindToLifecycle(rootView).subscribe {
-                            Toast.makeText(context, "${it.url}", Toast.LENGTH_SHORT).show()
+                            // Toast.makeText(context, "${it.url}", Toast.LENGTH_SHORT).show()
+                            dataBinding.news?.webview?.visibility = View.VISIBLE
+                            dataBinding.news?.webview?.loadUrl(it.url)
                         }
                     }
                 }
@@ -336,5 +365,264 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
                 dataBinding.collapsing.title = " "//carefull there should a space between double quote otherwise it wont work
             }
         }
+    }
+
+    private fun setupGraph(stock: Stock){
+        initializeGraph()
+        init1DGraph(stock)
+        // set up button on click listeners
+        dataBinding.graph!!.chartButton1D.setOnClickListener { init1DGraph(stock) }
+
+        dataBinding.graph!!.chartButton1M.setOnClickListener { initGraph(stock, "1m") }
+
+        dataBinding.graph!!.chartButton3M.setOnClickListener { initGraph(stock, "3m") }
+
+        dataBinding.graph!!.chartButton1Y.setOnClickListener { initGraph(stock, "1y") }
+
+        dataBinding.graph!!.chartButton5Y.setOnClickListener { initGraph(stock, "5y") }
+    }
+
+    private fun initializeGraph() {
+        val mChart = dataBinding.graph!!.stockDetailGraph
+        mChart.setViewPortOffsets(0f, 0f, 0f, 0f)
+        mChart.setBackgroundColor(this.color(R.color.black1))
+
+        // no description text
+        mChart.description.isEnabled = false
+
+        // enable touch gestures
+        mChart.setTouchEnabled(true)
+
+        // enable scaling and dragging
+        mChart.isDragEnabled = false
+        mChart.setScaleEnabled(false)
+
+        // if disabled, scaling can be done on x- and y-axis separately
+        mChart.setPinchZoom(false)
+
+        mChart.setDrawGridBackground(false)
+        mChart.maxHighlightDistance = 300f
+
+        val x = mChart.xAxis
+        x.isEnabled = false
+
+        val y = mChart.axisLeft
+        y.isEnabled = false
+//      y.setLabelCount(4, false)
+//      y.textColor = Color.WHITE
+//      y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
+//      y.setDrawGridLines(false)
+//      y.axisLineColor = Color.WHITE
+        mChart.axisRight.isEnabled = false
+
+        // add data
+        // setData(25, 100f, mChart)
+
+        mChart.legend.isEnabled = false
+
+        mChart.animateXY(2000, 2000)
+
+        // dont forget to refresh the drawing
+        mChart.invalidate()
+
+    }
+
+    private fun init1DGraph(stock: Stock) {
+        viewModel.getTodayChart(symbol).observe(this,
+                Observer {
+                    // draw graph
+                    val xValues = java.util.ArrayList<String>()
+                    val yValues = java.util.ArrayList<Entry>()
+                    var counter = 0
+                    if(it != null) {
+                        var skipSteps = it.size / 30
+                        if(skipSteps == 0)
+                            skipSteps = 1
+                        for(i in 1..it.size step skipSteps) {
+                            var i = i
+                            if(i >= it.size-1) {
+                                i = it.size-1
+                            }
+                            val time = it[i].minute
+                            val open = it[i].open
+                            if(open != null && time != null){
+                                yValues.add(Entry(counter.toFloat(), open.toFloat()))
+                                xValues.add(time)
+                                counter++
+                            }
+                            else {
+                                continue
+                            }
+                        }
+                        setGraphData(xValues, yValues, stock, null)
+                    }
+                })
+    }
+
+    private fun initGraph(stock: Stock, range: String) {
+        viewModel.getChart(symbol, range).observe(this,
+                Observer {
+                    val xValues = java.util.ArrayList<String>()
+                    val yValues = java.util.ArrayList<Entry>()
+                    var counter = 0
+                    if(it != null) {
+                        var skipSteps = it.size / 30
+                        if(skipSteps == 0)
+                            skipSteps = 1
+                        for(i in 1 until it.size step skipSteps) {
+                            var i = i
+                            if(i >= it.size-1) {
+                                i = it.size-1
+                            }
+                            val date = it[i].date
+                            val open = it[i].open
+                            if(open != null && date != null) {
+                                yValues.add(Entry(counter.toFloat(), open.toFloat()))
+                                xValues.add(date.toString())
+                                counter++
+                            }
+                            else {
+                                continue
+                            }
+                            setGraphData(xValues, yValues, stock, it)
+                        }
+                    }
+                })
+    }
+
+    private fun setGraphData(xValues: ArrayList<String>, yValues: ArrayList<Entry>, stock: Stock, chart: List<Chart>?) {
+        val mChart = dataBinding.graph!!.stockDetailGraph
+        val xAxis = mChart.xAxis
+        xAxis.valueFormatter = IAxisValueFormatter { value, _ -> xValues[value.toInt() % xValues.size] }
+
+        mChart.setOnChartValueSelectedListener(object : OnChartValueSelectedListener {
+            override fun onNothingSelected() {
+                dataBinding.stockDetailPrice.text = "$" + "${stock.quote?.latestPrice}"
+            }
+
+            override fun onValueSelected(e: Entry?, h: Highlight?) {
+                dataBinding.stockDetailPrice.text = "$" + e?.y?.toDouble()?.format(e.y.toDouble())
+            }
+
+        })
+
+        val set1 = LineDataSet(yValues, "DataSet 1")
+        set1.mode = LineDataSet.Mode.CUBIC_BEZIER
+        set1.cubicIntensity = 0.2f
+        //set1.setDrawFilled(true);
+        set1.setDrawCircles(false)
+        set1.lineWidth = 1.8f
+        set1.circleRadius = 4f
+        set1.setCircleColor(Color.WHITE)
+        if(chart == null) {
+            val percentage = stock.quote?.changePercent
+            if(percentage != null) {
+                dataBinding.stockDetailPercentage.text = "${percentage.format(percentage)}%"
+                if(percentage > 0) {
+                    set1.highLightColor = this.color(R.color.green)
+                    set1.color = this.color(R.color.green)
+                    dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.green))
+                } else {
+                    set1.highLightColor = this.color(R.color.red)
+                    set1.color = this.color(R.color.red)
+                    dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.red))
+                }
+            }
+        } else {
+            val open = chart[0].close
+            val close = chart[chart.size - 1].close
+            if(open != null && close != null) {
+                val difference = close - open
+                val percentChange = difference / open * 100
+                if(open < close) {
+                    set1.highLightColor = this.color(R.color.green)
+                    set1.color = this.color(R.color.green)
+                    dataBinding.stockDetailPercentage.text = "${percentChange.format(percentChange)}% (+${difference.format(difference)})"
+                    dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.green))
+                } else {
+                    set1.highLightColor = this.color(R.color.red)
+                    set1.color = this.color(R.color.red)
+                    dataBinding.stockDetailPercentage.text = "${percentChange.format(percentChange)}% (${difference.format(difference)})"
+                    dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.red))
+                }
+            }
+        }
+
+        set1.setDrawHorizontalHighlightIndicator(false)
+        val dataSets = java.util.ArrayList<ILineDataSet>()
+        dataSets.add(set1)
+        val data = LineData(dataSets)
+        data.setDrawValues(false)
+        mChart.data = data
+        mChart.animateXY(2000, 2000)
+    }
+
+    private fun setupEarnings(stock: Stock) {
+        val mChart = dataBinding.earning!!.stockDetailGraph
+        val earnings = stock.earnings?.earnings ?: return
+
+        mChart.setViewPortOffsets(0f, 0f, 0f, 0f)
+        mChart.setBackgroundColor(this.color(R.color.black1))
+        mChart.setNoDataText("Fetching latest graph data")
+        mChart.description.isEnabled = false
+        val e1 = java.util.ArrayList<BubbleEntry>()
+        val e2 = java.util.ArrayList<BubbleEntry>()
+        var counter = 0
+
+        val bubbleSize = 0.3f
+        for(i in earnings.size-1 downTo 0) {
+            val actual = earnings[i]?.actualEPS
+            val estimated = earnings[i]?.estimatedEPS
+//            val date = earnings[i]?.ePSReportDate
+//            val fromUser = SimpleDateFormat("yyyy-MM-dd", Locale.US)
+//            val myFormat = SimpleDateFormat("yyyyMMdd", Locale.US)
+//
+//            var formattedDate: String = ""
+//            try {
+//                formattedDate = myFormat.format(fromUser.parse(date))
+//            } catch (e: ParseException) {
+//                e.printStackTrace()
+//            }
+            if(actual == null || estimated == null) continue
+            e1.add(BubbleEntry(counter.toFloat(),actual.toFloat(), bubbleSize))
+            e2.add(BubbleEntry(counter.toFloat(),estimated.toFloat(), bubbleSize))
+            counter++
+        }
+
+        val d1 = BubbleDataSet(e1, "Actual EPS")
+        d1.setDrawIcons(false)
+        d1.color = this.color(R.color.grey1)
+        d1.setDrawValues(false)
+        d1.isNormalizeSizeEnabled = false
+
+        val d2 = BubbleDataSet(e2, "Estimated EPS")
+        d2.setDrawIcons(false)
+        d2.iconsOffset = MPPointF(0f, 10f)
+        d2.setColor(this.color(R.color.grey2), 150)
+        d2.setDrawValues(false)
+        d2.isNormalizeSizeEnabled = false
+
+        // enable touch gestures
+        mChart.setTouchEnabled(false)
+
+        val x = mChart.xAxis
+        x.position = XAxis.XAxisPosition.BOTTOM
+        x.setDrawGridLines(false)
+        x.axisMinimum = -1f
+        x.axisMaximum = 4f
+
+        val y = mChart.axisLeft
+        y.setDrawAxisLine(false)
+        y.setDrawZeroLine(false)
+        y.setDrawGridLines(false)
+        mChart.axisRight.setDrawGridLines(false)
+
+        val dataSets = java.util.ArrayList<IBubbleDataSet>()
+        dataSets.add(d1) // add the data sets
+        dataSets.add(d2)
+
+        val cd = BubbleData(dataSets)
+        mChart.data = cd
+        mChart.animateXY(2000, 2000)
     }
 }

@@ -35,5 +35,14 @@
             tools:listitem="@layout/recyclerview_stock_news_list"
             />
 
+        <WebView
+            android:id="@+id/webview"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            tools:layout_editor_absoluteX="8dp"
+            tools:layout_editor_absoluteY="8dp"
+            android:visibility="gone"
+            tools:ignore="MissingConstraints" />
+
     </android.support.constraint.ConstraintLayout>
 </layout>

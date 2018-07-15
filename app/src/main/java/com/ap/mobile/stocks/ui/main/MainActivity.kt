@@ -1,7 +1,6 @@
 package com.ap.mobile.stocks.ui.main
 
 
-import android.app.AlertDialog
 import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +11,7 @@ import com.ap.mobile.stocks.ui.detail.StockDetailsActivity
 import com.ap.mobile.stocks.ui.views.searchview.SearchItem
 import com.ap.mobile.stocks.ui.views.searchview.bindSearchView
 import com.ap.mobile.stocks.util.NetworkUtil
+import com.ap.mobile.stocks.util.alert
 
 class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>() {
 
@@ -24,11 +24,11 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
         setSupportActionBar(dataBinding.toolbar)
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         // check if there is internet access
-        if(NetworkUtil.getConnectionStatus(this) == 0) {
-            showErrorDialog("You are not connected to the Internet. None of the functionality will work.")
+        if (!NetworkUtil.isInternetConnected(this)) {
+            this.alert("You are not connected to the Internet. Please check your connection and try again.")
         }
     }
 
@@ -56,7 +56,7 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
                         }
                         textDebounceInterval = 0
                         noResultsFound = R.string.no_match
-                        shouldClearOnClose = false
+                        shouldClearOnClose = true
                         foregroundColor = R.color.black1
                         onItemClick = { position, _ , content, searchView ->
                             searchView.revealClose()
@@ -67,21 +67,5 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
                         }
                     }
                 })
-    }
-
-    /**
-     * show error
-     */
-    private fun showErrorDialog(message: String) {
-        val builder1 = AlertDialog.Builder(this)
-        builder1.setMessage(message)
-        builder1.setCancelable(false)
-
-        builder1.setPositiveButton(
-                "ok",
-                { dialog, _ -> dialog.cancel() })
-
-        val alert11 = builder1.create()
-        alert11.show()
     }
 }

@@ -4,6 +4,7 @@ package com.ap.mobile.stocks.util
 
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Context
 import android.graphics.Color
 import android.os.Build
@@ -72,6 +73,19 @@ fun View.snackbar(text: String, duration: Int = Snackbar.LENGTH_LONG, builder: S
 
 inline fun Context.toast(text: String, duration: Int = Toast.LENGTH_LONG) {
     Toast.makeText(this, text, duration).show()
+}
+
+inline fun Context.alert(message: String) {
+    val builder1 = AlertDialog.Builder(this)
+    builder1.setMessage(message)
+    builder1.setCancelable(false)
+
+    builder1.setPositiveButton(
+            "ok",
+            { dialog, _ -> dialog.cancel() })
+
+    val alert11 = builder1.create()
+    alert11.show()
 }
 
 fun View.snackbar(@StringRes textId: Int, duration: Int = Snackbar.LENGTH_LONG, builder: Snackbar.() -> Unit = {})

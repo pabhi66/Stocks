@@ -14,12 +14,24 @@
             android:background="@color/black1"
             >
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Data provided free by IEX"
+                android:textSize="12sp"
+                android:fontFamily="@font/comfortaa_light"
+                android:textColor="@color/grey1"
+                android:paddingBottom="30dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="parent"/>
+
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/stocks_fav_recycler_view"
                 android:background="@color/black1"
                 android:scrollbars="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:transitionGroup="false"
                 android:clipChildren="false"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"

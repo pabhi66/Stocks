@@ -12,6 +12,7 @@ import android.support.annotation.FontRes
 import android.support.annotation.StringRes
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.res.ResourcesCompat
+import android.util.Log
 import java.text.DecimalFormat
 
 /**
@@ -34,4 +35,8 @@ inline fun Context.font(@FontRes id: Int): Typeface = ResourcesCompat.getFont(th
 inline fun Double.format(number: Double): String {
     val df = DecimalFormat("#.##")
     return df.format(number)
+}
+
+inline fun Context.log(message: String) {
+    Log.e(this::class.java.simpleName, message)
 }

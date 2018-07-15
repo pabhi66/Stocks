@@ -1,6 +1,10 @@
 package com.ap.mobile.stocks.data.local.entity
 
 import com.google.gson.annotations.SerializedName
+import java.text.SimpleDateFormat
+import java.util.*
+
+
 
 data class NewsItem(
 
@@ -25,7 +29,10 @@ data class NewsItem(
 	@field:SerializedName("url")
 	val url: String? = null
 ) {
-	fun getFormattedDate() {
-
+	fun getFormattedDate(): String {
+		val sdf = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss-HH:mm", Locale.US)
+		val date = sdf.parse(datetime)
+		val output = SimpleDateFormat("MM-dd-yyyy", Locale.US)
+		return output.format(date)
 	}
 }

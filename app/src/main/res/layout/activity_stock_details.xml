@@ -82,8 +82,18 @@
                             android:fontFamily="@font/comfortaa_light"
                             android:textSize="30sp"
                             android:textColor="@color/green"
-                            android:gravity="center_vertical"
+                            android:layout_gravity="bottom"
                             tools:text="$43.47"
+                            />
+
+                        <ImageView
+                            android:id="@+id/triangle"
+                            android:layout_width="15dp"
+                            android:layout_height="15dp"
+                            android:layout_marginLeft="10dp"
+                            android:src="@drawable/ic_triangle_green"
+                            android:layout_gravity="bottom"
+                            android:layout_marginBottom="7.5dp"
                             />
 
                         <TextView
@@ -94,6 +104,9 @@
                             android:textColor="@color/green"
                             android:textSize="18sp"
                             tools:text="0.09%"
+                            android:layout_marginLeft="5dp"
+                            android:layout_gravity="bottom"
+                            android:gravity="bottom"
                             />
 
                     </LinearLayout>
@@ -318,7 +331,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="50dp" />
+                    android:layout_height="20dp" />
 
             </LinearLayout>
         </android.support.v4.widget.NestedScrollView>

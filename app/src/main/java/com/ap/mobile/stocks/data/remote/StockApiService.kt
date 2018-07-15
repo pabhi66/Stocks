@@ -18,7 +18,7 @@ import retrofit2.http.Path
  */
 interface StockApiService {
 
-    @GET("stock/{symbol}/batch?types=quote,news,company,earnings,financials,stats&range=1m&last=5")
+    @GET("stock/{symbol}/batch?types=quote,news,company,earnings,financials,stats&range=1d&last=5")
     fun getStockData(@Path("symbol") symbol: String): Single<Stock>
 
     @GET("stock/{symbol}/chart/1d")
