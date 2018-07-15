@@ -3,6 +3,9 @@ package com.ap.mobile.stocks.ui.main
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
+import android.support.v4.app.Fragment
+import android.support.v4.app.FragmentManager
+import android.support.v4.app.FragmentPagerAdapter
 import android.view.Menu
 import com.ap.mobile.stocks.R
 import com.ap.mobile.stocks.databinding.ActivityMainBinding
@@ -22,6 +25,11 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setSupportActionBar(dataBinding.toolbar)
+        val adapter = MyFragmentAdapter(supportFragmentManager)
+        val pager = dataBinding.viewPager
+        pager.adapter = adapter
+        dataBinding.indicator.setViewPager(pager)
+
     }
 
     override fun onResume() {
@@ -67,5 +75,21 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
                         }
                     }
                 })
+    }
+
+    internal inner class MyFragmentAdapter(fm: FragmentManager) : FragmentPagerAdapter(fm) {
+        private val fragments = arrayOfNulls<Fragment>(2)
+        private val titles = arrayOf("Market View", "Watchlist")
+
+        init {
+            fragments[0] = MainFragment()
+            fragments[1] = MainFragment()
+        }
+
+        override fun getCount(): Int = fragments.size
+
+        override fun getPageTitle(position: Int): CharSequence? = titles[position]
+
+        override fun getItem(position: Int): Fragment? = fragments[position]
     }
 }
