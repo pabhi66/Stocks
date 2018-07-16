@@ -28,6 +28,13 @@ A sample app that fatech data from jsonplaceholder.typicode.com with MVVM and Ar
 * [Stetho](https://github.com/facebook/stetho) for network inspection
 * [LeakCanary](https://github.com/square/leakcanary) for memory leak detection
 
+## Screen shots
+<img src="/photos/1.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
+<img src="/photos/2.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
+<img src="/photos/3.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
+<img src="/photos/4.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
+<img src="/photos/5.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
+<img src="/photos/6.png" alt="sample" title="sample" width="220" height="370" vspace="50" />
 # License
 
     Copyright 2017 Abhishek Prajapati

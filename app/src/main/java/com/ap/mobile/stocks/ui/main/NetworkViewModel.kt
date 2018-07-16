@@ -7,6 +7,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModel
 import android.os.Handler
 import android.util.Log
+import com.ap.mobile.stocks.data.local.entity.NewsItem
 import com.ap.mobile.stocks.data.local.entity.Stock
 import com.ap.mobile.stocks.data.local.entity.Symbol
 import com.ap.mobile.stocks.data.local.entity.UserStockList
@@ -145,4 +146,65 @@ class NetworkViewModel @Inject constructor(
                 })
         return stockChartDataToday
     }
+
+    //=======================================================
+    //         GET MOST ACTIVE STOCKS
+    //=======================================================
+    private val mostActiveStocksLive = MutableLiveData<List<com.ap.mobile.stocks.data.local.entity.List>>()
+    private val mostActiveStocksData: LiveData<List<com.ap.mobile.stocks.data.local.entity.List>>
+        get() = mostActiveStocksLive
+
+    fun getMostActiveStocks(): LiveData<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        disposable.add(stocksRepository.getMostActiveStocks().subscribe {
+            response, error -> mostActiveStocksLive.value = response
+            if(error != null) Log.e(TAG, "unable to get most active stocks: $error")
+        })
+        return mostActiveStocksData
+    }
+
+    //=======================================================
+    //         GET TODAY'S GAINERS
+    //=======================================================
+    private val gainersStocksLive = MutableLiveData<List<com.ap.mobile.stocks.data.local.entity.List>>()
+    private val gainersStocksData: LiveData<List<com.ap.mobile.stocks.data.local.entity.List>>
+        get() = gainersStocksLive
+
+    fun getGainersStocks(): LiveData<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        disposable.add(stocksRepository.getGainersStocks().subscribe {
+            response, error -> gainersStocksLive.value = response
+            if(error != null) Log.e(TAG, "unable to get gainers: $error")
+        })
+        return gainersStocksData
+    }
+
+    //=======================================================
+    //         GET TODAY'S LOSERS
+    //=======================================================
+    private val losersStocksLive = MutableLiveData<List<com.ap.mobile.stocks.data.local.entity.List>>()
+    private val losersStocksData: LiveData<List<com.ap.mobile.stocks.data.local.entity.List>>
+        get() = losersStocksLive
+
+    fun getLosersStocks(): LiveData<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        disposable.add(stocksRepository.getLosersStocks().subscribe {
+            response, error -> losersStocksLive.value = response
+            if(error != null) Log.e(TAG, "unable to get losers: $error")
+        })
+        return losersStocksData
+    }
+
+    //=======================================================
+    //         GET LATEST NEWS
+    //=======================================================
+    private val latestNewsLive = MutableLiveData<List<NewsItem>>()
+    private val latestNewsData: LiveData<List<NewsItem>>
+        get() = latestNewsLive
+
+    fun getLatestNews(): LiveData<List<NewsItem>> {
+        disposable.add(stocksRepository.getLatestNews().subscribe {
+            response, error -> latestNewsLive.value = response
+            if(error != null) Log.e(TAG, "unable to get latest news: $error")
+        })
+        return latestNewsData
+    }
+
 }

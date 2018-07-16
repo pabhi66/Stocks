@@ -14,9 +14,7 @@ import android.view.Gravity
 import android.view.View
 import android.view.animation.Interpolator
 import android.widget.LinearLayout
-
 import com.ap.mobile.stocks.R
-
 import android.support.v4.view.ViewPager.OnPageChangeListener
 import com.ap.mobile.stocks.util.DimensionUtil
 

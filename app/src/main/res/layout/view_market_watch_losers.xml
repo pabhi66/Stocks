@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <RelativeLayout
+            android:id="@+id/image_label"
+            style="@style/TextAppearance.Image">
+
+            <ImageView
+                android:id="@+id/myImageView"
+                style="@style/TextAppearance.ImageImage"/>
+
+            <TextView
+                android:text="Losers"
+                android:layout_alignStart="@+id/myImageView"
+                android:layout_alignTop="@+id/myImageView"
+                android:layout_alignEnd="@+id/myImageView"
+                android:layout_alignBottom="@+id/myImageView"
+                style="@style/TextAppearance.ImageLabel"/>
+        </RelativeLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/stock_detail_rv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:transitionGroup="false"
+            android:clipChildren="false"
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toBottomOf="@+id/image_label"
+            tools:listitem="@layout/recyclerview_market_view"
+            />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

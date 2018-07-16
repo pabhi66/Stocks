@@ -4,21 +4,21 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.widget.helper.ItemTouchHelper
 import com.ap.mobile.stocks.R
-import com.ap.mobile.stocks.databinding.FragmentMainBinding
+import com.ap.mobile.stocks.databinding.FragmentWatchlistBinding
 import com.ap.mobile.stocks.databinding.RecyclerviewStocksListBinding
 import com.ap.mobile.stocks.ui.base.BaseFragment
 import com.ap.mobile.stocks.ui.detail.StockDetailsActivity
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.ItemTouchHelperAdapter
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RecyclerViewItemTouchHelper
 import com.ap.mobile.stocks.ui.views.rxrecyclerview.RxSimpleAdapter
-import com.ap.mobile.stocks.util.toast
 import com.trello.rxlifecycle2.kotlin.bindToLifecycle
 import io.reactivex.Observable
+import java.util.*
 
-class MainFragment: BaseFragment<NetworkViewModel, FragmentMainBinding>() {
+class WatchlistFragment: BaseFragment<NetworkViewModel, FragmentWatchlistBinding>() {
     override fun getViewModel(): Class<NetworkViewModel> = NetworkViewModel::class.java
 
-    override fun getLayoutRes(): Int = R.layout.fragment_main
+    override fun getLayoutRes(): Int = R.layout.fragment_watchlist
 
     private var shouldExecuteOnResume = false
 
@@ -77,17 +77,16 @@ class MainFragment: BaseFragment<NetworkViewModel, FragmentMainBinding>() {
                          */
                         override fun onItemMove(fromPosition: Int, toPosition: Int) {
                             // must call
-//                            if(fromPosition < toPosition) {
-//                                for (i in fromPosition until toPosition) {
-//                                    Collections.swap(viewModel.userStocksList.value, i, i + 1)
-//                                }
-//                            } else {
-//                                for (i in fromPosition downTo toPosition + 1) {
-//                                    Collections.swap(viewModel.userStocksList.value, i, i - 1)
-//                                }
-//                            }
-//                            dataBinding.stocksFavRecyclerView.adapter.notifyItemMoved(fromPosition, toPosition)
-                            context?.toast("Drag feature is not supported yet.")
+                            if(fromPosition < toPosition) {
+                                for (i in fromPosition until toPosition) {
+                                    Collections.swap(viewModel.userStocksList.value, i, i + 1)
+                                }
+                            } else {
+                                for (i in fromPosition downTo toPosition + 1) {
+                                    Collections.swap(viewModel.userStocksList.value, i, i - 1)
+                                }
+                            }
+                            dataBinding.stocksFavRecyclerView.adapter.notifyItemMoved(fromPosition, toPosition)
                         }
 
                         /**

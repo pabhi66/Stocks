@@ -51,7 +51,7 @@ abstract class RxRecyclerAdapter<T : Any, U : RecyclerView.ViewHolder>(
                                 val quote = response?.body()
                                 val df = DecimalFormat("#.##")
                                 df.roundingMode = RoundingMode.CEILING
-                                val currentPrice = quote?.latestPrice
+                                val currentPrice = quote?.iexRealtimePrice
                                 if(currentPrice != null) {
                                     it.price = df.format(currentPrice)
                                     val change = quote.changePercent

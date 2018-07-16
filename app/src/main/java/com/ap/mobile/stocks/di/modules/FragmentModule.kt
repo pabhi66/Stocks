@@ -1,6 +1,7 @@
 package com.ap.mobile.stocks.di.modules
 
-import com.ap.mobile.stocks.ui.main.MainFragment
+import com.ap.mobile.stocks.ui.main.MarketViewFragment
+import com.ap.mobile.stocks.ui.main.WatchlistFragment
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -16,6 +17,9 @@ import dagger.android.ContributesAndroidInjector
 abstract class FragmentModule {
 
     @ContributesAndroidInjector
-    abstract fun contributeMainFragment(): MainFragment
+    abstract fun contributeWatchlistFragment(): WatchlistFragment
+
+    @ContributesAndroidInjector
+    abstract fun contributeMarketViewFragment(): MarketViewFragment
 
 }

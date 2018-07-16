@@ -7,7 +7,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.support.design.widget.AppBarLayout
 import android.support.v4.view.ViewCompat
-import android.util.Log
 import android.view.View
 import com.ap.mobile.stocks.R
 import com.ap.mobile.stocks.data.local.entity.NewsItem
@@ -64,10 +63,6 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        if(!NetworkUtil.isInternetConnected(this))
-
-            Log.e("symbol", intent.getStringExtra(SYMBOL) + intent.getStringArrayExtra(COMPANY))
-
         symbol = intent.getStringExtra(SYMBOL)
         company = intent.getStringExtra(COMPANY)
 
@@ -107,8 +102,8 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
 
     private fun setupTopData(stock: Stock) {
         val quote = stock.quote ?: return
-        dataBinding.stockDetailPrice.text = "$" + quote.latestPrice?.format(quote.latestPrice)
-        dataBinding.stockDetailPercentage.text = quote.changePercent?.format(quote.changePercent) + "%"
+        dataBinding.stockDetailPrice.text = "$" + quote.iexRealtimePrice?.format(quote.iexRealtimePrice)
+        dataBinding.stockDetailPercentage.text = "$" + quote.change?.format(quote.change) + " (" + quote.changePercent?.format(quote.changePercent) + "%)"
         if(quote.changePercent!! < 0) {
             dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.red))
             dataBinding.stockDetailPrice.setTextColor(this.color(R.color.red))
@@ -408,11 +403,6 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
 
         val y = mChart.axisLeft
         y.isEnabled = false
-//      y.setLabelCount(4, false)
-//      y.textColor = Color.WHITE
-//      y.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART)
-//      y.setDrawGridLines(false)
-//      y.axisLineColor = Color.WHITE
         mChart.axisRight.isEnabled = false
 
         // add data
@@ -517,7 +507,8 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
         if(chart == null) {
             val percentage = stock.quote?.changePercent
             if(percentage != null) {
-                dataBinding.stockDetailPercentage.text = "${percentage.format(percentage)}%"
+                // dataBinding.stockDetailPercentage.text = "${percentage.format(percentage)}%"
+                dataBinding.stockDetailPercentage.text = "$" + stock.quote.change?.format(stock.quote.change) + " (" + percentage.format(percentage) + "%)"
                 if(percentage > 0) {
                     set1.highLightColor = this.color(R.color.green)
                     set1.color = this.color(R.color.green)
@@ -537,12 +528,12 @@ class StockDetailsActivity : BaseActivityWithVM<NetworkViewModel, ActivityStockD
                 if(open < close) {
                     set1.highLightColor = this.color(R.color.green)
                     set1.color = this.color(R.color.green)
-                    dataBinding.stockDetailPercentage.text = "${percentChange.format(percentChange)}% (+${difference.format(difference)})"
+                    dataBinding.stockDetailPercentage.text = "$${difference.format(difference)} (${percentChange.format(percentChange)}%)"
                     dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.green))
                 } else {
                     set1.highLightColor = this.color(R.color.red)
                     set1.color = this.color(R.color.red)
-                    dataBinding.stockDetailPercentage.text = "${percentChange.format(percentChange)}% (${difference.format(difference)})"
+                    dataBinding.stockDetailPercentage.text = "$${difference.format(difference)} (${percentChange.format(percentChange)}%)"
                     dataBinding.stockDetailPercentage.setTextColor(this.color(R.color.red))
                 }
             }

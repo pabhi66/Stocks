@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+
+    <data>
+        <variable
+            name="list"
+            type="com.ap.mobile.stocks.data.local.entity.List" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="150dp"
+        android:layout_height="200dp"
+        tools:targetApi="lollipop"
+        android:background="@color/black1"
+        >
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:cardUseCompatPadding="true"
+
+            >
+
+            <android.support.constraint.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/black2"
+                >
+
+                <TextView
+                    android:id="@+id/rv_symbol"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_bold"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:paddingBottom="2dp"
+                    android:paddingTop="10dp"
+                    android:textColor="@color/grey1"
+                    android:textSize="18sp"
+                    android:text="@{list.symbol}"
+                    tools:text="ABC"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toTopOf="@id/rv_company"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintHorizontal_bias="0"/>
+
+                <TextView
+                    android:id="@+id/rv_company"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:fontFamily="@font/comfortaa_regular"
+                    android:paddingBottom="10dp"
+                    android:textColor="@color/grey1"
+                    android:text="@{list.companyName}"
+                    android:textSize="12sp"
+                    android:maxLines="3"
+                    tools:text="Apple Inc."
+                    app:layout_constraintTop_toBottomOf="@+id/rv_symbol"/>
+
+                <TextView
+                    android:id="@+id/rv_price"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:paddingBottom="2dp"
+                    android:textColor="@{list.getPriceColor() >= 0 ? @color/green : @color/red}"
+                    android:textSize="20sp"
+                    android:maxLines="3"
+                    android:text="@{list.getFormatedPrice()}"
+                    tools:text="$191.05"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="30dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toTopOf="@+id/rv_percentage"/>
+
+                <TextView
+                    android:id="@+id/rv_percentage"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/comfortaa_light"
+                    android:textColor="@{list.getPriceColor() >= 0 ? @color/green : @color/red}"
+                    android:textSize="12sp"
+                    android:maxLines="3"
+                    android:text="@{list.getFormatedChange()}"
+                    tools:text="+3.3%"
+                    android:paddingEnd="30dp"
+                    android:paddingStart="30dp"
+                    android:paddingBottom="30dp"
+                    app:layout_constraintRight_toRightOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+            </android.support.constraint.ConstraintLayout>
+
+        </android.support.v7.widget.CardView>
+
+    </android.support.constraint.ConstraintLayout>
+</layout>

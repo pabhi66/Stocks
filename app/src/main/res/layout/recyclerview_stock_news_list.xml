@@ -40,7 +40,7 @@
                     android:paddingEnd="20dp"
                     android:paddingStart="20dp"
                     android:paddingTop="10dp"
-                    android:text="@{news.headline}"
+                    android:text="@{news.formattedTitle}"
                     android:textColor="@color/grey1"
                     android:textSize="18sp"
                     tools:text="title"

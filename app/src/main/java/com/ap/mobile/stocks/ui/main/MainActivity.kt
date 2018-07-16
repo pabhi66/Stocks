@@ -56,7 +56,7 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
                     bindSearchView(menu, R.id.action_search){
                         textCallback = { query, searchView ->
                             val items = it?.filter {
-                                it.symbol!!.startsWith(query, ignoreCase = true) || it.name!!.startsWith(query, ignoreCase = true)
+                                it.symbol!!.startsWith(query, ignoreCase = true) || it.name!!.contains(query, ignoreCase = true)
                             }?.map {
                                 SearchItem(it.symbol!!, description = it.name)
                             }
@@ -68,8 +68,6 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
                         foregroundColor = R.color.black1
                         onItemClick = { position, _ , content, searchView ->
                             searchView.revealClose()
-                            // ActivityUtil.addFragmentToActivity(fragmentManager!!, StockDetailFragment.newInstance(content), R.id.fragment)
-                            // viewModel.insertStockToUserList(content, this@MainActivity)
                             val item = searchView.adapter.getAdapterItem(position)
                             startActivity(StockDetailsActivity.newIntent(this@MainActivity, content, item.description!!))
                         }
@@ -82,8 +80,8 @@ class MainActivity : BaseActivityWithVM<NetworkViewModel, ActivityMainBinding>()
         private val titles = arrayOf("Market View", "Watchlist")
 
         init {
-            fragments[0] = MainFragment()
-            fragments[1] = MainFragment()
+            fragments[0] = MarketViewFragment()
+            fragments[1] = WatchlistFragment()
         }
 
         override fun getCount(): Int = fragments.size

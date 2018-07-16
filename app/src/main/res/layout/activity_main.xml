@@ -41,11 +41,11 @@
 
         <!--<fragment-->
             <!--android:id="@+id/fragment"-->
-            <!--android:name="com.ap.mobile.stocks.ui.main.MainFragment"-->
+            <!--android:name="com.ap.mobile.stocks.ui.main.WatchlistFragmentgment"-->
             <!--android:layout_width="match_parent"-->
             <!--android:layout_height="match_parent"-->
             <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"-->
-            <!--tools:layout="@layout/fragment_main" />-->
+            <!--tools:layout="@layout/fragment_watchlist" />-->
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

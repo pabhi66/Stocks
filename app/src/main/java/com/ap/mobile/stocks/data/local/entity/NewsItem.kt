@@ -35,4 +35,13 @@ data class NewsItem(
 		val output = SimpleDateFormat("MM-dd-yyyy", Locale.US)
 		return output.format(date)
 	}
+
+	fun getFormattedTitle(): String {
+		if (headline == null) return "-"
+		return if(headline.contains("&apos;s")) {
+			val x = headline.replace("&apos;s","'s", ignoreCase = true)
+			x
+		}
+		else headline
+	}
 }

@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/refresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black1"
+        >
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/details"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/black2"
+                    >
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/cardview"
+                        app:contentPaddingBottom="0dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="0dp"
+                        >
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="Today's market briefing."
+                            android:textColor="@color/grey1"
+                            android:textSize="40sp"
+                            android:padding="20dp"
+                            android:fontFamily="@font/josefin_sans_semi_bold"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/popular_card_view"
+                        app:contentPaddingBottom="16dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="2dp"
+                        style="@style/CardView.Detail"
+                        >
+
+                    <include
+                        android:id="@+id/popular"
+                        layout="@layout/view_market_watch_popular"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/gainers_card_view"
+                        app:contentPaddingBottom="16dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="2dp"
+                        style="@style/CardView.Detail"
+                        >
+
+                        <include
+                            android:id="@+id/gainers"
+                            layout="@layout/view_market_watch_gainers"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/losers_card_view"
+                        app:contentPaddingBottom="16dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="2dp"
+                        style="@style/CardView.Detail"
+                        >
+
+                        <include
+                            android:id="@+id/losers"
+                            layout="@layout/view_market_watch_losers"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <android.support.v7.widget.CardView
+                        android:id="@+id/news_card_view"
+                        app:contentPaddingBottom="16dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="2dp"
+                        style="@style/CardView.Detail"
+                        >
+
+                        <include
+                            android:id="@+id/news"
+                            layout="@layout/view_market_watch_news"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <!--<android.support.v7.widget.CardView-->
+                        <!--android:id="@+id/index_card_view"-->
+                        <!--app:contentPaddingBottom="16dp"-->
+                        <!--app:contentPaddingLeft="0dp"-->
+                        <!--app:contentPaddingRight="0dp"-->
+                        <!--app:cardCornerRadius="4dp"-->
+                        <!--app:cardBackgroundColor="@color/black1"-->
+                        <!--app:cardElevation="2dp"-->
+                        <!--style="@style/CardView.Detail"-->
+                        <!--&gt;-->
+
+                        <!--<include-->
+                            <!--android:id="@+id/index"-->
+                            <!--layout="@layout/view_market_watch_index"/>-->
+
+                    <!--</android.support.v7.widget.CardView>-->
+
+                    <!--<android.support.v7.widget.CardView-->
+                        <!--android:id="@+id/sector_card_view"-->
+                        <!--app:contentPaddingBottom="16dp"-->
+                        <!--app:contentPaddingLeft="0dp"-->
+                        <!--app:contentPaddingRight="0dp"-->
+                        <!--app:cardCornerRadius="4dp"-->
+                        <!--app:cardBackgroundColor="@color/black1"-->
+                        <!--app:cardElevation="2dp"-->
+                        <!--style="@style/CardView.Detail"-->
+                        <!--&gt;-->
+
+                        <!--<include-->
+                            <!--android:id="@+id/sector"-->
+                            <!--layout="@layout/view_market_watch_sector"/>-->
+
+                    <!--</android.support.v7.widget.CardView>-->
+
+                    <android.support.v7.widget.CardView
+                        app:contentPaddingBottom="16dp"
+                        app:contentPaddingLeft="0dp"
+                        app:contentPaddingRight="0dp"
+                        app:cardCornerRadius="4dp"
+                        app:cardBackgroundColor="@color/black1"
+                        app:cardElevation="4dp"
+                        style="@style/CardView.Detail"
+                        >
+
+                        <include
+                            android:id="@+id/disclosure"
+                            layout="@layout/view_stock_details_disclosure"/>
+
+                    </android.support.v7.widget.CardView>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="20dp" />
+
+                </LinearLayout>
+
+        </ScrollView>
+
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
+</layout>

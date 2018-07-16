@@ -1,5 +1,6 @@
 package com.ap.mobile.stocks.data.repository
 
+import com.ap.mobile.stocks.data.local.entity.NewsItem
 import com.ap.mobile.stocks.data.local.entity.Quote
 import com.ap.mobile.stocks.data.local.entity.Stock
 import com.ap.mobile.stocks.data.local.entity.Symbol
@@ -60,5 +61,41 @@ class StocksRepository @Inject constructor(private val stocksApiService: StockAp
 
     fun getQuote(symbol: String): Call<Quote> {
         return stocksApiService.getQuote(symbol)
+    }
+
+    fun getMostActiveStocks(): Single<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        return stocksApiService.getMostActiveStocks().onErrorResumeNext {
+            it.printStackTrace()
+            null
+        }.doOnSuccess {}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getGainersStocks(): Single<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        return stocksApiService.getGainersStocks().onErrorResumeNext {
+            it.printStackTrace()
+            null
+        }.doOnSuccess {}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getLosersStocks(): Single<List<com.ap.mobile.stocks.data.local.entity.List>> {
+        return stocksApiService.getLosersStocks().onErrorResumeNext {
+            it.printStackTrace()
+            null
+        }.doOnSuccess {}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun getLatestNews(): Single<List<NewsItem>> {
+        return stocksApiService.getLatestNews().onErrorResumeNext {
+            it.printStackTrace()
+            null
+        }.doOnSuccess {}
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
     }
 }
