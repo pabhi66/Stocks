@@ -5,6 +5,8 @@
 </h1>
 
 Stocks app with android arch components, rxjava, dagger 2, data binding, retrofit and mote
+[Google Play Link](https://play.google.com/store/apps/details?id=com.ap.mobile.stocks)
+[<img src="https://cdn.worldvectorlogo.com/logos/google-play-badge.svg">](https://play.google.com/store/apps/details?id=com.ap.mobile.stocks)
 
 ### Stock Data
 All the data is provided for free by [IEX](https://iextrading.com/developer). View [IEX’s Terms of Use](https://iextrading.com/api-exhibit-a/).
