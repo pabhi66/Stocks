@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 92 25">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e91b45;
+      }
+
+      .cls-2 {
+        fill: #fff;
+        font-size: 11px;
+        font-family: Helvetica-Bold, Helvetica;
+        font-weight: 700;
+      }
+    </style>
+  </defs>
+  <g id="Group_12" data-name="Group 12" transform="translate(0 -200)">
+    <path id="Rectangle_13" data-name="Rectangle 13" class="cls-1" d="M0,0H79.5A12.5,12.5,0,0,1,92,12.5v0A12.5,12.5,0,0,1,79.5,25H0a0,0,0,0,1,0,0V0A0,0,0,0,1,0,0Z" transform="translate(0 200)"/>
+    <text id="Match_Info" data-name="Match Info" class="cls-2" transform="translate(43 216.172)"><tspan x="-27.497" y="0">Match Info</tspan></text>
+  </g>
+</svg>
